@@ -23,17 +23,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
 
-        if (horizontal != 0 || vertical != 0) {
-            animator.SetBool("Walking", true);
-        } else
+        /*if (horizontal != 0 || vertical != 0)
         {
-            animator.SetBool("Walking", false);
+            animator.SetFloat("VelocityMagnitude", rb.velocity.magnitude);
         }
-
-        rb.velocity = new Vector2(horizontal, vertical).normalized * walkspeed;
+        else
+        {
+            animator.SetFloat("VelocityMagnitude", false);
+        }*/
 
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
         Vector3 dir = Input.mousePosition - pos;
@@ -44,5 +42,18 @@ public class PlayerController : MonoBehaviour
         {
             renderer.flipX = false;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        animator.SetFloat("VelocityMagnitude", rb.velocity.magnitude);
+        animator.SetFloat("VelocityNormal", rb.velocity.magnitude / walkspeed);
+
+        animator.SetBool("Walking", horizontal != 0 || vertical != 0);
+
+        rb.velocity = new Vector2(horizontal, vertical).normalized * walkspeed;
     }
 }
