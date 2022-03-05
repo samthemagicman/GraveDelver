@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
+    public GameObject bulletPrefab;
+    public GameObject bulletPlacement;
     public GameObject player;
     SpriteRenderer swordRenderer;
     public GameObject sword;
@@ -12,6 +14,9 @@ public class GunController : MonoBehaviour
     public Vector2 positionOffset = Vector2.zero;
 
     public Animator animator;
+
+    public float fireRatePerSecond = 1f;
+    float lastFire;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +28,10 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Time.realtimeSinceStartup - lastFire >= fireRatePerSecond && Input.GetButton("Fire1"))
         {
+            FireBullet();
+            lastFire = Time.realtimeSinceStartup;
             animator.SetTrigger("Fire");
         }
 
@@ -35,18 +42,27 @@ public class GunController : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         if (dir.x < 0)
         {
-            //renderer.flipX = true;
-            swordRenderer.flipY = false;
+            //swordRenderer.flipY = false;
+            swordRenderer.transform.localScale = new Vector3(swordRenderer.transform.localScale.x, Mathf.Abs(swordRenderer.transform.localScale.y), swordRenderer.transform.localScale.z);
             //angle = angle + 180;
             angle = angle + 12;
         }
         else
         {
-            //renderer.flipX = false;
-            swordRenderer.flipY = true;
+            //swordRenderer.flipY = true;
+            swordRenderer.transform.localScale = new Vector3(swordRenderer.transform.localScale.x, -Mathf.Abs(swordRenderer.transform.localScale.y), swordRenderer.transform.localScale.z);
             angle = angle - 12;
         }
         sword.transform.rotation = Quaternion.AngleAxis(angle + 180, Vector3.forward);
         sword.transform.localPosition += sword.transform.right * outwardOffset;
+    }
+
+    void FireBullet()
+    {
+        GameObject bullet = Instantiate(bulletPrefab);
+        bullet.transform.position = bulletPlacement.transform.position;
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.velocity = -bulletPlacement.transform.right * 10;
+        
     }
 }
