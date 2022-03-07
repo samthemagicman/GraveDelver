@@ -15,6 +15,13 @@ public class PlayerController : MonoBehaviour
     public static PlayerController singleton;
 
     float knockbackTime = 0;
+    bool knockedBack = false;
+
+    // A value between 0 and 1 that indicates how much the player has control
+    float control = 1;
+    bool rolling = false;
+
+    Vector2 walkVector;
 
     // Start is called before the first frame update
     void Start()
@@ -49,28 +56,54 @@ public class PlayerController : MonoBehaviour
         {
             renderer.flipX = false;
         }
+
+        if (rolling == false && Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            rolling = true;
+            StartCoroutine("RollStop");
+            animator.SetTrigger("Roll");
+        }
     }
 
     private void FixedUpdate()
     {
-        if (Time.realtimeSinceStartup - knockbackTime < 0.1f)
-        {
-            return;
-        }
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+        walkVector = new Vector2(horizontal, vertical).normalized;
+        if (!knockedBack && !rolling)
+        {
+            control = control + 0.05f;
 
-        animator.SetFloat("VelocityMagnitude", rb.velocity.magnitude);
-        animator.SetFloat("VelocityNormal", rb.velocity.magnitude / walkspeed);
+            animator.SetFloat("VelocityMagnitude", rb.velocity.magnitude);
+            animator.SetFloat("VelocityNormal", rb.velocity.magnitude / walkspeed);
 
-        animator.SetBool("Walking", horizontal != 0 || vertical != 0);
+            animator.SetBool("Walking", horizontal != 0 || vertical != 0);
+            rb.velocity = Vector2.Lerp(rb.velocity, (walkVector * walkspeed), control);
+        }
 
-        rb.velocity = new Vector2(horizontal, vertical).normalized * walkspeed;
+        if (rolling)
+        {
+            rb.velocity = walkVector * 7;
+        }
     }
 
-    public void Knockback(Vector3 origin, float power = 15)
+    public void Knockback(Vector3 origin, float power = 20)
     {
+        knockedBack = true;
+        StartCoroutine("KnockbackStun");
         knockbackTime = Time.realtimeSinceStartup;
         rb.velocity = (transform.position - origin).normalized * power;
+    }
+
+    IEnumerator KnockbackStun()
+    {
+        yield return new WaitForSeconds(0.1f);
+        knockedBack = false;
+    }
+
+    IEnumerator RollStop()
+    {
+        yield return new WaitForSeconds(0.2f);
+        rolling = false;
     }
 }
