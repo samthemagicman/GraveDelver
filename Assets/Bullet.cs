@@ -31,6 +31,7 @@ public class Bullet : MonoBehaviour
         if (slimeEnemy != null)
         {
             slimeEnemy.Knockback(transform.position);
+            slimeEnemy.Damage(25);
         }
         Destroy(gameObject);
     }

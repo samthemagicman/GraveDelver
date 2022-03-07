@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class SlimeEnemy : MonoBehaviour, IEnemy
 {
+    public bool dead = false;
+    public float health = 100;
+    public float Health { 
+        get
+        {
+            return health;
+        }
+        set
+        {
+            // Do damage function
+            health = value;
+        }
+    }
     Rigidbody2D rb;
     Animator animator;
     bool inAir = false;
@@ -16,6 +29,7 @@ public class SlimeEnemy : MonoBehaviour, IEnemy
     // Update is called once per frame
     void Update()
     {
+        if (dead) return;
         int ran = Random.Range(0, 100);
         if (ran == 1)
         {
@@ -30,6 +44,7 @@ public class SlimeEnemy : MonoBehaviour, IEnemy
     {
         if (inAir)
         {
+            if (dead) return;
             rb.velocity = (PlayerController.singleton.player.transform.position - transform.position).normalized * 4;
         } else
         {
@@ -60,5 +75,21 @@ public class SlimeEnemy : MonoBehaviour, IEnemy
         {
             //PlayerController.singleton.Knockback(transform.position);
         }
+    }
+
+    public void Damage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            dead = true;
+            inAir = false;
+            animator.SetTrigger("Death");
+        }
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
