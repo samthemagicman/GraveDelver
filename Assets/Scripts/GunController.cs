@@ -15,6 +15,7 @@ public class GunController : MonoBehaviour
 
     public Animator animator;
 
+    float lastTimeFireButtonDown = 0;
     public float fireRatePerSecond = 1f;
     float lastFire;
 
@@ -32,7 +33,11 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.realtimeSinceStartup - lastFire >= fireRatePerSecond && Input.GetButton("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
+        {
+            lastTimeFireButtonDown = Time.realtimeSinceStartup; // Provides a small buffer for input
+        }
+        if (Time.realtimeSinceStartup - lastFire >= fireRatePerSecond && (Time.realtimeSinceStartup - lastTimeFireButtonDown < 0.1f))
         {
             FireBullet();
             lastFire = Time.realtimeSinceStartup;
