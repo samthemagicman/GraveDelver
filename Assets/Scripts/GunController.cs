@@ -18,6 +18,10 @@ public class GunController : MonoBehaviour
     public float fireRatePerSecond = 1f;
     float lastFire;
 
+    float currentAngle;
+
+    float accuracy = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,21 +43,21 @@ public class GunController : MonoBehaviour
         sword.transform.localPosition = positionOffset;// new Vector3(0, 0, 0);
         Vector3 pos = Camera.main.WorldToScreenPoint(sword.transform.position);
         Vector3 dir = Input.mousePosition - pos;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        currentAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         if (dir.x < 0)
         {
             //swordRenderer.flipY = false;
             swordRenderer.transform.localScale = new Vector3(swordRenderer.transform.localScale.x, Mathf.Abs(swordRenderer.transform.localScale.y), swordRenderer.transform.localScale.z);
             //angle = angle + 180;
-            angle = angle + 12;
+            currentAngle = currentAngle;
         }
         else
         {
             //swordRenderer.flipY = true;
             swordRenderer.transform.localScale = new Vector3(swordRenderer.transform.localScale.x, -Mathf.Abs(swordRenderer.transform.localScale.y), swordRenderer.transform.localScale.z);
-            angle = angle - 12;
+            currentAngle = currentAngle;
         }
-        sword.transform.rotation = Quaternion.AngleAxis(angle + 180, Vector3.forward);
+        sword.transform.rotation = Quaternion.AngleAxis(currentAngle + 180, Vector3.forward);
         sword.transform.localPosition += sword.transform.right * outwardOffset;
     }
 
@@ -62,7 +66,11 @@ public class GunController : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab);
         bullet.transform.position = bulletPlacement.transform.position;
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.velocity = -bulletPlacement.transform.right * 10;
+        //rb.velocity = -bulletPlacement.transform.right * 10;
+        bullet.transform.rotation = Quaternion.AngleAxis(currentAngle + Random.Range(-accuracy, accuracy), Vector3.forward);
+        rb.velocity = bullet.transform.right * 10;
+        //bullet.transform.Rotate(bulletPlacement.transform.right, 45f, Space.World);
+        //Debug.Log(new Vector3(Mathf.Sin(Mathf.PI/4), Mathf.Cos(Mathf.PI / 4), 0));
         
     }
 }
