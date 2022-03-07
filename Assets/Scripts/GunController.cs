@@ -68,7 +68,7 @@ public class GunController : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         //rb.velocity = -bulletPlacement.transform.right * 10;
         bullet.transform.rotation = Quaternion.AngleAxis(currentAngle + Random.Range(-accuracy, accuracy), Vector3.forward);
-        rb.velocity = bullet.transform.right * 10;
+        rb.velocity = bullet.transform.right * 20;
         //bullet.transform.Rotate(bulletPlacement.transform.right, 45f, Space.World);
         //Debug.Log(new Vector3(Mathf.Sin(Mathf.PI/4), Mathf.Cos(Mathf.PI / 4), 0));
         
