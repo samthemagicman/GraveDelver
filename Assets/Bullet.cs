@@ -25,6 +25,13 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject particles = Instantiate(bulletHitParticle, transform.position, transform.rotation);
+
+        IEnemy slimeEnemy;
+        collision.gameObject.TryGetComponent<IEnemy>(out slimeEnemy);
+        if (slimeEnemy != null)
+        {
+            slimeEnemy.Knockback(transform.position);
+        }
         Destroy(gameObject);
     }
 }

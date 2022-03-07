@@ -11,10 +11,17 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer renderer;
 
+    public GameObject player;
+    public static PlayerController singleton;
+
+    float knockbackTime = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        singleton = this;
+        player = gameObject;
+
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         renderer = GetComponent<SpriteRenderer>();
@@ -46,6 +53,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Time.realtimeSinceStartup - knockbackTime < 0.1f)
+        {
+            return;
+        }
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -55,5 +66,11 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Walking", horizontal != 0 || vertical != 0);
 
         rb.velocity = new Vector2(horizontal, vertical).normalized * walkspeed;
+    }
+
+    public void Knockback(Vector3 origin, float power = 15)
+    {
+        knockbackTime = Time.realtimeSinceStartup;
+        rb.velocity = (transform.position - origin).normalized * power;
     }
 }
