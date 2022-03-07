@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
         collision.gameObject.TryGetComponent<IEnemy>(out slimeEnemy);
         if (slimeEnemy != null)
         {
-            slimeEnemy.Knockback(transform.position);
+            slimeEnemy.Knockback(PlayerController.singleton.transform.position);
             slimeEnemy.Damage(25);
         }
         Destroy(gameObject);
