@@ -79,8 +79,9 @@ public class SlimeEnemy : MonoBehaviour, IEnemy
 
     public void Damage(float damage)
     {
+        
         health -= damage;
-        if (health <= 0)
+        if (!dead && health <= 0)
         {
             dead = true;
             inAir = false;
