@@ -64,9 +64,12 @@ public class SlimeEnemy : MonoBehaviour, IEnemy
 
     public void Knockback(Vector3 origin, float power = 15)
     {
-        inAir = false;
-        animator.SetTrigger("Hit");
-        rb.velocity = -(origin - transform.position).normalized * power;
+        if (!dead)
+        {
+            inAir = false;
+            animator.SetTrigger("Hit");
+            rb.velocity = -(origin - transform.position).normalized * power;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
