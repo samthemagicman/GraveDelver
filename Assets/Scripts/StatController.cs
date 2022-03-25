@@ -19,10 +19,7 @@ public class StatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = 100;
-        loot = 0;
-        bullets = 20;
-        totalTime = 300;
+        
     }
 
     // Update is called once per frame

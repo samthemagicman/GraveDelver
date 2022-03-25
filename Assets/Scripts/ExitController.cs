@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class ExitController : MonoBehaviour
@@ -48,8 +49,9 @@ public class ExitController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //End of Level
-            endText.text = "You Win!";
+            StatController.totalTime = StatController.totalTime - (Time.timeSinceLevelLoad);
+            LevelDesigner.level++;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

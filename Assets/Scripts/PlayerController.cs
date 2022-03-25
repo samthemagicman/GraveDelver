@@ -129,6 +129,12 @@ public class PlayerController : MonoBehaviour
             Destroy(other, 0f);
             StatController.loot += 5;
             other.gameObject.SetActive(false);
+
+            //Check if you have a new high score
+            if (PlayerPrefs.GetInt("High Score") < StatController.loot)
+            {
+                PlayerPrefs.SetInt("Level", StatController.loot);
+            }
         }
 
         if (other.gameObject.CompareTag("Health"))
