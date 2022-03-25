@@ -37,11 +37,18 @@ public class GunController : MonoBehaviour
         {
             lastTimeFireButtonDown = Time.realtimeSinceStartup; // Provides a small buffer for input
         }
+
+        //Check Reload Time
         if (Time.realtimeSinceStartup - lastFire >= fireRatePerSecond && (Time.realtimeSinceStartup - lastTimeFireButtonDown < 0.1f))
         {
-            FireBullet();
-            lastFire = Time.realtimeSinceStartup;
-            animator.SetTrigger("Fire");
+            //Check bullets
+            if (StatController.bullets > 0)
+            {
+                FireBullet();
+                lastFire = Time.realtimeSinceStartup;
+                animator.SetTrigger("Fire");
+            }
+            
         }
 
         //Rotate sword
@@ -68,6 +75,9 @@ public class GunController : MonoBehaviour
 
     void FireBullet()
     {
+        //Decrement Bullets
+        StatController.bullets--;
+
         GameObject bullet = Instantiate(bulletPrefab);
         bullet.transform.position = bulletPlacement.transform.position;
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
