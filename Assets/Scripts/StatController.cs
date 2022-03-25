@@ -19,7 +19,13 @@ public class StatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (LevelDesigner.level == 0)
+        {
+            totalTime = 250;
+            health = 50;
+            bullets = 20;
+            loot = 0;
+        }
     }
 
     // Update is called once per frame

@@ -12,16 +12,20 @@ public class LightController : MonoBehaviour
     void Start()
     {
         light = GetComponent<Light2D>();
+
+        //The Light gets more Red as levels progress
+        light.color = new Color(0.7f, 0.75f - 0.05f * LevelDesigner.level, 0.2f, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //The Light Shrinks as time goes on
         float lightRadius = 200 + StatController.totalTime - (Time.timeSinceLevelLoad);
         lightRadius = lightRadius / 120;
             
         light.pointLightOuterRadius = lightRadius;
         light.pointLightInnerRadius = lightRadius / 2;
+        
     }
 }

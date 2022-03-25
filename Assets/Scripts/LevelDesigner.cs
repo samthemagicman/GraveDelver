@@ -9,22 +9,64 @@ public class LevelDesigner : MonoBehaviour
     public GameObject health;
     public GameObject loot;
     public GameObject oil;
+    public GameObject obstacle;
 
     public static int level;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Fill Rooms
         for (float x = -2; x < 3; x++)
         {
            for (float y = 0; y < 3; y++)
             {
-                Vector3 position = new Vector3(x * 14, y * 14 + 2f, 0f);
+                float xRand = Random.Range(-3, 4);
+                float yRand = Random.Range(-3, 4);
+                Vector3 position = new Vector3(x * 14 + xRand, y * 14 + 2f + yRand, 0f);
                 CreatePickup(position);
-                
+
+                int numObstacles = Random.Range(0, 3);
+
+                for (; numObstacles > 0; numObstacles--)
+                {
+                    xRand = Random.Range(-2, 3);
+                    yRand = Random.Range(-2, 3);
+                    position = new Vector3(x * 14 + xRand, y * 14 + 2f + yRand, 0f);
+                    CreateObstacle(position);
+                }
             }
         }
+
+        //Pickups in Nooks
+        //Top & Bottom
+        for (int x = -28; x < 30; x += 14)
+        {
+            Vector3 position = new Vector3(x, 38, 0);
+            CreatePickup(position);
+
+            if (x != 0)
+            {
+                position = new Vector3(x, -6, 0);
+                CreatePickup(position);
+            }
+        }
+
+        //Sides
+        for (int y = 2; y <31; y += 14)
+        {
+            Vector3 position = new Vector3(36, y, 0);
+            CreatePickup(position);
+
+            position = new Vector3(-36, y, 0);
+            CreatePickup(position);
+        }
+
+        //Obstacles in Doorways
+        //Tier 1
+        int where = (int)Random.Range(0, 4);
+        Tier1Obstacle(where);
+        
     }
 
     // Update is called once per frame
@@ -46,7 +88,7 @@ public class LevelDesigner : MonoBehaviour
         {
             Instantiate(health, position, Quaternion.identity);
         }
-        else if (pickup < 3 * level + 57)
+        else if (pickup < 4 * level + 56)
         {
             Instantiate(loot, position, Quaternion.identity);
         }
@@ -54,6 +96,42 @@ public class LevelDesigner : MonoBehaviour
         {
             Instantiate(oil, position, Quaternion.identity);
         }
+    }
+
+    void CreateObstacle(Vector3 position)
+    {
+        Instantiate(obstacle, position, Quaternion.identity);
+    }
+
+    //Takes a number from 0 to 3
+    void Tier1Obstacle(int w)
+    {
+        float x;
+        float y;
+        if (w < 3 && w > 0)
+        {
+            y = 16;
+        }
+        else
+        {
+            y = 9;
+        }
+
+        x = w * 7f - 14;
+
+        if (w > 1)
+        {
+            x += 7;
+        }
+
+        Vector3 position = new Vector3(x, y, 0);
+        CreateObstacle(position);
+    }
+
+    //Takes a number from 0 to 7
+    void Tier2Obstacle(int w)
+    {
+
     }
 }
 

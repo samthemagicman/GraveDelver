@@ -7,13 +7,12 @@ using Random = UnityEngine.Random;
 
 public class ExitController : MonoBehaviour
 {
-    public Text endText;
+   
 
     // Start is called before the first frame update
     void Start()
     {
-        //Clear Text
-        endText.text = "";
+        
         
         //Set Location of Exit
         int location = Random.Range(0, 11);
@@ -25,6 +24,7 @@ public class ExitController : MonoBehaviour
             Vector3 position = new Vector3(x, 38, 0);
             transform.position = position;
         }
+        //Sides
         else if (location > 7) //8 to 10
         {
             float y = 14 * (location - 8) + 2;
@@ -52,6 +52,14 @@ public class ExitController : MonoBehaviour
             StatController.totalTime = StatController.totalTime - (Time.timeSinceLevelLoad);
             LevelDesigner.level++;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else if (other.gameObject.CompareTag("Oil") ||
+                other.gameObject.CompareTag("Bullet") ||
+                other.gameObject.CompareTag("Health") ||
+                other.gameObject.CompareTag("Loot"))
+        {
+            Destroy(other, 0f);
+            other.gameObject.SetActive(false);
         }
     }
 }
