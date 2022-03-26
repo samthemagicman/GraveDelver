@@ -21,11 +21,21 @@ public class LightController : MonoBehaviour
     void Update()
     {
         //The Light Shrinks as time goes on
-        float lightRadius = 200 + StatController.totalTime - (Time.timeSinceLevelLoad);
+        float timeLeft = StatController.totalTime - Time.timeSinceLevelLoad;
+
+        float lightRadius = 200 + timeLeft;
         lightRadius = lightRadius / 120;
-            
+
         light.pointLightOuterRadius = lightRadius;
         light.pointLightInnerRadius = lightRadius / 2;
+
         
+        if ((timeLeft <= 10 && (int)(2*timeLeft) % 4 == 0) || timeLeft < 0.5)
+        {
+            light.pointLightOuterRadius = 0;
+            light.pointLightInnerRadius = 0;
+        }
     }
 }
+
+   

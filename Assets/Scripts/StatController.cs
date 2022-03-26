@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class StatController : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class StatController : MonoBehaviour
     {
         if (LevelDesigner.level == 0)
         {
-            totalTime = 250;
+            totalTime = 10;
             health = 50;
             bullets = 20;
             loot = 0;
@@ -36,6 +38,26 @@ public class StatController : MonoBehaviour
         lootText.text = loot + "";
 
         setTimeText();
+
+        if (health == 0)
+        {
+            string[] fateOptions = new string[3] {"you were torn apart.",
+                                                    "you were eaten alive.",
+                                                    "you were picked clean." };
+
+            BetweenController.fate = fateOptions[(int)Random.Range(0, 3)];
+            SceneManager.LoadScene("Game Over");
+        }
+
+        else if (totalTime + 0.5 < Time.timeSinceLevelLoad)
+        {
+            string[] fateOptions = new string[3] {"you fell to the darkness.",
+                                                    "you could only hear your death.",
+                                                    "the shadows took you." };
+
+            BetweenController.fate = fateOptions[(int)Random.Range(0, 3)];
+            SceneManager.LoadScene("Game Over");
+        }
     }
 
     void setTimeText()
