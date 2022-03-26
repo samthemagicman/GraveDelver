@@ -14,8 +14,6 @@ public class LevelDesigner : MonoBehaviour
 
     public static int level;
 
-    public int randCheck1;
-    public int randCheck2;
 
 
     // Start is called before the first frame update
@@ -98,13 +96,11 @@ public class LevelDesigner : MonoBehaviour
         Tier2Obstacle(where);
 
         //Tier 3
-        where = (int)Random.Range(2, 6);
+        where = (int)Random.Range(3, 6);
         Tier3Obstacle(where);
-        randCheck1 = where;
 
-        where = (int)Random.Range(0, where - 1);
+        where = (int)Random.Range(0, where - 2);
         Tier3Obstacle(where);
-        randCheck2 = where;
 
 
     }

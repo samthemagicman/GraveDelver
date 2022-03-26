@@ -30,10 +30,19 @@ public class LightController : MonoBehaviour
         light.pointLightInnerRadius = lightRadius / 2;
 
         
-        if ((timeLeft <= 10 && (int)(2*timeLeft) % 4 == 0) || timeLeft < 0.5)
+        /*if ((timeLeft <= 10 && (int)(2*timeLeft) % 4 == 0) || timeLeft < 0.5)
         {
             light.pointLightOuterRadius = 0;
             light.pointLightInnerRadius = 0;
+        }*/
+
+        if (timeLeft <= 5)
+        {
+            light.intensity = timeLeft / 5;
+        }
+        else
+        {
+            light.intensity = 1;
         }
     }
 }

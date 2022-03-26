@@ -23,8 +23,8 @@ public class StatController : MonoBehaviour
     {
         if (LevelDesigner.level == 0)
         {
-            totalTime = 10;
-            health = 50;
+            totalTime = 300;
+            health = 100;
             bullets = 20;
             loot = 0;
         }
