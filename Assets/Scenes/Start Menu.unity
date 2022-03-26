@@ -5194,7 +5194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 538345204}
   titleText: {fileID: 756585408}
-  fadeRate: 20
+  fadeRate: 10
 --- !u!4 &1825929069
 Transform:
   m_ObjectHideFlags: 0
