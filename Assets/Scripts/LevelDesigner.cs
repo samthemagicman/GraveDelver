@@ -19,6 +19,13 @@ public class LevelDesigner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        //Level Testing
+        if (level == 0)
+        {
+            level = 7;
+        }
+
         //Fill Rooms
         for (float x = -2; x < 3; x++)
         {

@@ -41,4 +41,10 @@ public class MenuController : MonoBehaviour
         LevelDesigner.level = 1;
         
     }
+
+    //Go to the instructions
+    public void Instruction()
+    {
+        SceneManager.LoadScene("Instructions");
+    }
 }

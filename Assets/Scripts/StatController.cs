@@ -23,7 +23,7 @@ public class StatController : MonoBehaviour
     {
         if (LevelDesigner.level == 0)
         {
-            totalTime = 300;
+            totalTime = 100;
             health = 100;
             bullets = 20;
             loot = 0;
@@ -49,7 +49,7 @@ public class StatController : MonoBehaviour
             SceneManager.LoadScene("Game Over");
         }
 
-        else if (totalTime + 0.5 < Time.timeSinceLevelLoad)
+        else if (totalTime < Time.timeSinceLevelLoad)
         {
             string[] fateOptions = new string[3] {"you fell to the darkness.",
                                                     "you could only hear your death.",
