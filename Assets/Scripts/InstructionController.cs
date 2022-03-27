@@ -33,10 +33,10 @@ public class InstructionController : MonoBehaviour
                     + "They hold the bones and possessions of the dead.\n"
                     + "Free for the taking if ignore the moral qualms.";
         writing[0] = "Some say there is no bottom.\n"
-                    + "Some say there is a gate to Hell somewhere.";
+                    + "Some say you can find a gate to Hell inside.";
 
-        pages[1] = "Use arrow keys or ASDW to move.\n\n\n"
-                    + "Right click to sprint, if only for a short distance.";
+        pages[1] = "Use arrow keys or ASDW to move.\n\n"
+                    + "Right click to sprint,\nif only for a short distance.";
         writing[1] = "Don’t get cornered in. You’re faster than they are.";
 
         pages[2] = "You have a gun to shoot with.\n\n"
@@ -57,7 +57,7 @@ public class InstructionController : MonoBehaviour
 
         pages[5] = "If you are injured, you can find red hearts to heal yourself up.\n\n\n"
                     + "You can always look in your heart to see how close to death you are.";
-        writing[5] = "You;ll never get used to their teeth.";
+        writing[5] = "You'll never get used to their teeth.";
 
         pages[6] = "Each level of the catacomb has a staircase down to the next level.\n"
                     + "They will always be found in the nooks on the edges.\n\n"

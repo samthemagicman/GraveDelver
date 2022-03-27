@@ -6,56 +6,64 @@ using UnityEngine.UI;
 
 public class BetweenController : MonoBehaviour
 {
-    public Text gameOver;
-    public Text score;
-    public Button again;
-
-    public static string fate;
-
-    public float fadeRate;
+    public Text level;
+    public Text lootCount;
 
     // Start is called before the first frame update
     void Start()
     {
-        score.text = "You found " + StatController.loot + " Treasures\n";
-        
-        if (LevelDesigner.level == 1)
+        level.text = "Now Entering Level " + LevelDesigner.level;
+
+        string loot;
+        if (StatController.loot == 0)
         {
-            score.text += "in the " + LevelDesigner.level + " level you delved before \n";
+            loot = "no";
         }
         else
         {
-            score.text += "in the " + LevelDesigner.level + " levels you delved before \n";
+            loot = StatController.loot + "";
         }
-        
-        score.text += fate;
 
-
-        gameOver.color = new Color(255, 0, 0, 0);
-        score.color = new Color(255, 255, 255, 0);
-        again.image.color = new Color(255, 0, 0, 0);
+        lootCount.text = "You currently have " + loot + " loot.\n"
+                        + "Would you rather keep going or leave with what you have ?";
     }
 
     // Update is called once per frame
     void Update()
     {
-        float transparency = Time.timeSinceLevelLoad / fadeRate;
-        gameOver.color = new Color(255, 0, 0, transparency);
-        score.color = new Color(255, 255, 255, transparency * 0.7f);
-        again.image.color = new Color(255, 0, 0, transparency * 0.5f);
+        
     }
 
-    //Load the game with the starting stats
-    public void LoadGame()
+    //Continue to the next level
+    public void Continue()
     {
         SceneManager.LoadScene("RandomMap");
+    }
 
-        StatController.health = 100;
-        StatController.bullets = 20;
-        StatController.loot = 0;
-        StatController.totalTime = 300;
+    //Leave the game with what you have
+    public void Leave()
+    {
+        //Decrement Level as it is incremented upon exit
+        LevelDesigner.level--;
 
-        LevelDesigner.level = 1;
+        //Track your deeds.
+        if (!PlayerPrefs.HasKey("High Score") || StatController.loot > PlayerPrefs.GetInt("High Score"))
+        {
+            PlayerPrefs.SetInt("High Score", StatController.loot);
+        }
 
+        if (!PlayerPrefs.HasKey("Lowest Level") || LevelDesigner.level > PlayerPrefs.GetInt("Lowest Level"))
+        {
+            PlayerPrefs.SetInt("Lowest Level", LevelDesigner.level);
+        }
+
+
+        //Track your fate
+        string[] fateOptions = new string[3] {"you got out with your life.",
+                                                    "you ran like a coward.",
+                                                    "you couldn't take it any more." };
+
+        EndController.fate = fateOptions[(int)Random.Range(0, 3)];
+        SceneManager.LoadScene("Game Over");
     }
 }

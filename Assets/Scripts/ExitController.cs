@@ -51,7 +51,7 @@ public class ExitController : MonoBehaviour
         {
             StatController.totalTime = StatController.totalTime - (Time.timeSinceLevelLoad);
             LevelDesigner.level++;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("Between Levels");
         }
         else if (other.gameObject.CompareTag("Oil") ||
                 other.gameObject.CompareTag("Bullet") ||

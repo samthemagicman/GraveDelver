@@ -45,7 +45,7 @@ public class StatController : MonoBehaviour
                                                     "you were eaten alive.",
                                                     "you were picked clean." };
 
-            BetweenController.fate = fateOptions[(int)Random.Range(0, 3)];
+            EndController.fate = fateOptions[(int)Random.Range(0, 3)];
             SceneManager.LoadScene("Game Over");
         }
 
@@ -55,7 +55,7 @@ public class StatController : MonoBehaviour
                                                     "you could only hear your death.",
                                                     "the shadows took you." };
 
-            BetweenController.fate = fateOptions[(int)Random.Range(0, 3)];
+            EndController.fate = fateOptions[(int)Random.Range(0, 3)];
             SceneManager.LoadScene("Game Over");
         }
     }

@@ -9,14 +9,32 @@ public class MenuController : MonoBehaviour
     //public static int highScore;
 
     public Text scoreText;
+    public Text levelText;
     public Text titleText;
+
     public float fadeRate;
 
     // Start is called before the first frame update
     void Start()
     {
-        //scoreText.text = "High Score:\n" + PlayerPrefs.GetInt("High Score");
-        scoreText.text = "";
+        if (PlayerPrefs.HasKey("High Score"))
+        {
+            scoreText.text = "High Score:\n" + PlayerPrefs.GetInt("High Score");
+        }
+        else
+        {
+            scoreText.text = "";
+        }
+
+        if (PlayerPrefs.HasKey("Lowest Level"))
+        {
+            levelText.text = "Lowest Level\nSurvived:\n" + PlayerPrefs.GetInt("Lowest Level");
+        }
+        else
+        {
+            levelText.text = "";
+        }
+
         titleText.color = new Color(255,255,255,0);
     }
 
