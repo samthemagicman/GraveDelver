@@ -11,12 +11,18 @@ public class MenuController : MonoBehaviour
     public Text scoreText;
     public Text levelText;
     public Text titleText;
+    public Text clearText;
 
     public float fadeRate;
+
+    public bool verified;
 
     // Start is called before the first frame update
     void Start()
     {
+        verified = false;
+
+        //Set Progress Text
         if (PlayerPrefs.HasKey("High Score"))
         {
             scoreText.text = "High Score:\n" + PlayerPrefs.GetInt("High Score");
@@ -35,6 +41,7 @@ public class MenuController : MonoBehaviour
             levelText.text = "";
         }
 
+        //Set title to transparent
         titleText.color = new Color(255,255,255,0);
     }
 
@@ -64,5 +71,22 @@ public class MenuController : MonoBehaviour
     public void Instruction()
     {
         SceneManager.LoadScene("Instructions");
+    }
+
+    //Clear progress
+    public void Clear()
+    {
+        if (verified)
+        {
+            PlayerPrefs.DeleteAll();
+            scoreText.text = "";
+            levelText.text = "";
+            clearText.text = "All Gone!";
+        }
+        else
+        {
+            clearText.text = "Are you sure?";
+            verified = true;
+        }
     }
 }
