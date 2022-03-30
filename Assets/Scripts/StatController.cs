@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class StatController : MonoBehaviour
 {
+    public static StatController singleton;
 
     public static float totalTime;
     public static int health;
@@ -18,9 +19,13 @@ public class StatController : MonoBehaviour
     public Text bulletText;
     public Text lootText;
 
+    public float damageDebounce = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        singleton = this;
+
         if (LevelDesigner.level == 0)
         {
             totalTime = 100;
@@ -76,5 +81,13 @@ public class StatController : MonoBehaviour
         time += seconds;
 
         timeText.text = time;
+    }
+
+    public void damagePlayer(int dmg) {
+        if (Time.realtimeSinceStartup - damageDebounce > 0.2f)
+        {
+            damageDebounce = Time.realtimeSinceStartup;
+            health -= dmg;
+        }
     }
 }
