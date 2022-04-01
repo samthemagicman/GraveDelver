@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Between Levels.unity
     guid: b6be6acb5fe924d4aa284f48b2df2136
+  - enabled: 1
+    path: Assets/Scenes/Vendor.unity
+    guid: b1b9dad4c447ba4409edffd9e5eab65d
   m_configObjects: {}

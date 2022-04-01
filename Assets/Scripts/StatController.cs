@@ -31,7 +31,7 @@ public class StatController : MonoBehaviour
             totalTime = 100;
             health = 100;
             bullets = 20;
-            loot = 0;
+            loot = 50;
         }
     }
 

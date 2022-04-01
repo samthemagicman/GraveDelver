@@ -23,9 +23,9 @@ public class MenuController : MonoBehaviour
         verified = false;
 
         //Set Progress Text
-        if (PlayerPrefs.HasKey("High Score"))
+        if (PlayerPrefs.HasKey("Wealth"))
         {
-            scoreText.text = "High Score:\n" + PlayerPrefs.GetInt("High Score");
+            scoreText.text = "Wealth:\n" + PlayerPrefs.GetInt("Wealth");
         }
         else
         {
@@ -56,15 +56,14 @@ public class MenuController : MonoBehaviour
     //Load the game with the starting stats
     public void LoadGame()
     {
-        SceneManager.LoadScene("RandomMap");
+        LevelDesigner.level = 1;
 
+        StatController.totalTime = 180;
         StatController.health = 100;
         StatController.bullets = 20;
-        StatController.loot = 0;
-        StatController.totalTime = 300;
+        StatController.loot = PlayerPrefs.GetInt("Wealth");
 
-        LevelDesigner.level = 1;
-        
+        SceneManager.LoadScene("Vendor");
     }
 
     //Go to the instructions

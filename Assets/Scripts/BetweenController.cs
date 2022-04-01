@@ -47,10 +47,9 @@ public class BetweenController : MonoBehaviour
         LevelDesigner.level--;
 
         //Track your deeds.
-        if (!PlayerPrefs.HasKey("High Score") || StatController.loot > PlayerPrefs.GetInt("High Score"))
-        {
-            PlayerPrefs.SetInt("High Score", StatController.loot);
-        }
+        
+        PlayerPrefs.SetInt("Wealth", StatController.loot);
+        
 
         if (!PlayerPrefs.HasKey("Lowest Level") || LevelDesigner.level > PlayerPrefs.GetInt("Lowest Level"))
         {
