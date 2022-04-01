@@ -31,6 +31,7 @@ public class LevelDesigner : MonoBehaviour
         {
            for (float y = 0; y < 3; y++)
             {
+                //A room with more items has more enemies
                 int fullness = (int)Random.Range(0, 3);
 
                 for (int i = 0; i < fullness; i++)
@@ -41,10 +42,14 @@ public class LevelDesigner : MonoBehaviour
 
                     CreatePickup(position);
                 }
-                
-                fullness += (int)Random.Range(1, 4);
 
-                for (int i = 0; i < fullness; i++)
+                
+
+                int maxEnemies = (fullness + 1) * (level / 5 + 1);
+                int Enemies = (int)Random.Range(fullness, maxEnemies + 1);
+
+
+                for (int i = 0; i < Enemies; i++)
                 {
                     float xRand = Random.Range(-3, 4);
                     float yRand = Random.Range(-3, 4);
@@ -52,6 +57,9 @@ public class LevelDesigner : MonoBehaviour
 
                     CallToFeast(position);
                 }
+
+
+
 
 
                 int numObstacles = Random.Range(0, 3);

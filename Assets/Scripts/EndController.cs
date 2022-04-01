@@ -51,15 +51,13 @@ public class EndController : MonoBehaviour
     //Load the game with the starting stats
     public void LoadGame()
     {
-        SceneManager.LoadScene("RandomMap");
-
-        StatController.health = 100;
-        StatController.bullets = 20;
-        StatController.loot = 0;
-        StatController.totalTime = 300;
-
         LevelDesigner.level = 1;
 
+        StatController.totalTime = 180;
+        StatController.health = 100;
+        StatController.bullets = 20;
+
+        SceneManager.LoadScene("Vendor");
     }
 
     //Return to Main Menu

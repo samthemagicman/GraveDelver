@@ -61,7 +61,6 @@ public class MenuController : MonoBehaviour
         StatController.totalTime = 180;
         StatController.health = 100;
         StatController.bullets = 20;
-        StatController.loot = PlayerPrefs.GetInt("Wealth");
 
         SceneManager.LoadScene("Vendor");
     }
