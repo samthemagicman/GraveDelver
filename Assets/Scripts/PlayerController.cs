@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -127,7 +128,10 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Loot"))
         {
             Destroy(other, 0f);
-            StatController.loot += 5;
+
+            int lootValue = (int)Random.Range(-2, 3);
+            lootValue += PlayerPrefs.GetInt("BaseLoot");
+            StatController.loot += lootValue;
             other.gameObject.SetActive(false);
 
         }

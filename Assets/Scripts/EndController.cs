@@ -53,9 +53,9 @@ public class EndController : MonoBehaviour
     {
         LevelDesigner.level = 1;
 
-        StatController.totalTime = 180;
-        StatController.health = 100;
-        StatController.bullets = 20;
+        StatController.totalTime = PlayerPrefs.GetFloat("StartTime");
+        StatController.health = PlayerPrefs.GetInt("MaxHealth");
+        StatController.bullets = PlayerPrefs.GetInt("StartBullets");
 
         SceneManager.LoadScene("Vendor");
     }
