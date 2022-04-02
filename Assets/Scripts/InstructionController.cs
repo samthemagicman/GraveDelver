@@ -43,7 +43,7 @@ public class InstructionController : MonoBehaviour
                     + "Use your mouse to aim and left-click to shoot.\n"
                     + "You can only shoot if you have bullets.\n"
                     + "You can pick up bullets left behind by others by walking over them.";
-        writing[2] = "They take four bullets to kill, but you'll never kill them all.";
+        writing[2] = "They take three bullets to kill, but you'll never kill them all.";
 
         pages[3] = "Always carry a lantern with you.\n\n\n"
                     + "You can always see how much time you have left in your lantern.\n"

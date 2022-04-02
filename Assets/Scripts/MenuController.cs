@@ -87,4 +87,10 @@ public class MenuController : MonoBehaviour
             verified = true;
         }
     }
+
+    //Exit Game
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
