@@ -5,7 +5,8 @@ using UnityEngine;
 public class SlimeEnemy : MonoBehaviour, IEnemy
 {
     public bool dead = false;
-    public float health = 100;
+    public float health = 75;
+    public float speed;
     public float Health { 
         get
         {
@@ -45,7 +46,7 @@ public class SlimeEnemy : MonoBehaviour, IEnemy
         if (inAir)
         {
             if (dead) return;
-            rb.velocity = (PlayerController.singleton.player.transform.position - transform.position).normalized * 4;
+            rb.velocity = (PlayerController.singleton.player.transform.position - transform.position).normalized * speed;
         } else
         {
             rb.velocity = rb.velocity * 0.8f;
@@ -76,13 +77,13 @@ public class SlimeEnemy : MonoBehaviour, IEnemy
     {
         if (collision.gameObject.tag == "Player")
         {
-            //PlayerController.singleton.Knockback(transform.position);
+            PlayerController.singleton.Knockback(transform.position, 12);
+            StatController.singleton.damagePlayer(10);
         }
     }
 
     public void Damage(float damage)
     {
-        
         health -= damage;
         if (!dead && health <= 0)
         {

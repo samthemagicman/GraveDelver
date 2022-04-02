@@ -106,4 +106,48 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         rolling = false;
     }
+
+    //Check when the player meets with items
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Oil"))
+        {
+            Destroy(other, 0f);
+            StatController.totalTime += 20;
+            other.gameObject.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(other, 0f);
+            StatController.bullets += 10;
+            other.gameObject.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("Loot"))
+        {
+            Destroy(other, 0f);
+            StatController.loot += 5;
+            other.gameObject.SetActive(false);
+
+        }
+
+        if (other.gameObject.CompareTag("Health"))
+        {
+            if (StatController.health < 100)
+            {
+                Destroy(other, 0f);
+                other.gameObject.SetActive(false);
+            }
+
+            if (StatController.health > 80)
+            {
+                StatController.health = 100;
+            }
+            else
+            {
+                StatController.health += 20;
+            }
+        }
+    }
 }
