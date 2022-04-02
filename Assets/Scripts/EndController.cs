@@ -36,6 +36,7 @@ public class EndController : MonoBehaviour
         score.color = new Color(255, 255, 255, 0);
         again.image.color = new Color(255, 0, 0, 0);
         menu.image.color = new Color(255, 0, 0, 0);
+
     }
 
     // Update is called once per frame
@@ -51,12 +52,7 @@ public class EndController : MonoBehaviour
     //Load the game with the starting stats
     public void LoadGame()
     {
-        LevelDesigner.level = 1;
-
-        StatController.totalTime = PlayerPrefs.GetFloat("StartTime");
-        StatController.health = PlayerPrefs.GetInt("MaxHealth");
-        StatController.bullets = PlayerPrefs.GetInt("StartBullets");
-
+        
         SceneManager.LoadScene("Vendor");
     }
 

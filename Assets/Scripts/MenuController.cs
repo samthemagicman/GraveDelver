@@ -74,12 +74,6 @@ public class MenuController : MonoBehaviour
     //Load the game with the starting stats
     public void LoadGame()
     {
-        LevelDesigner.level = 1;
-
-        StatController.totalTime = PlayerPrefs.GetFloat("StartTime");
-        StatController.health = PlayerPrefs.GetInt("MaxHealth");
-        StatController.bullets = PlayerPrefs.GetInt("StartBullets");
-
         SceneManager.LoadScene("Vendor");
     }
 

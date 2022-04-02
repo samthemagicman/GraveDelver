@@ -13,6 +13,7 @@ public class LevelDesigner : MonoBehaviour
     public GameObject enemy;
 
     public static int level;
+    public static float startingTime;
 
 
 
@@ -24,6 +25,17 @@ public class LevelDesigner : MonoBehaviour
         if (level == 0)
         {
             level = 7;
+        }
+        else if (level != 1)
+        {
+            level++;
+        }
+
+        //Set time here to avoid a glitch
+        if (startingTime != 0)
+        {
+            StatController.totalTime = startingTime;
+            startingTime = 0;
         }
 
         //Fill Rooms

@@ -33,6 +33,14 @@ public class VendorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LevelDesigner.level = 1;
+        LevelDesigner.startingTime = 0;
+
+        StatController.totalTime = PlayerPrefs.GetFloat("StartTime");
+        StatController.health = PlayerPrefs.GetInt("MaxHealth");
+        StatController.bullets = PlayerPrefs.GetInt("StartBullets");
+        StatController.loot = PlayerPrefs.GetInt("Wealth");
+
         //Set the price tags
         bulletPriceTag.text = "$" + bulletCost;
         armorPriceTag.text = "$" + armorCost;
@@ -42,7 +50,6 @@ public class VendorController : MonoBehaviour
         mapPriceTag.text = "$" + mapCost;
 
         
-        StatController.loot = PlayerPrefs.GetInt("Wealth");
 
         infiniteLoot = false;
 

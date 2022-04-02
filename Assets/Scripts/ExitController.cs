@@ -58,12 +58,7 @@ public class ExitController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            LevelDesigner.level++;
-            float nextTime = StatController.totalTime - (Time.timeSinceLevelLoad);
-            SceneManager.LoadScene("Between Levels");
-            StatController.totalTime = nextTime;
-
-
+            NextLevel();
         }
         else if (other.gameObject.CompareTag("Oil") ||
                 other.gameObject.CompareTag("Bullet") ||
@@ -73,5 +68,12 @@ public class ExitController : MonoBehaviour
             Destroy(other, 0f);
             other.gameObject.SetActive(false);
         }
+    }
+
+    void NextLevel()
+    {
+        
+        LevelDesigner.startingTime = StatController.totalTime - (Time.timeSinceLevelLoad);
+        SceneManager.LoadScene("Between Levels");
     }
 }
