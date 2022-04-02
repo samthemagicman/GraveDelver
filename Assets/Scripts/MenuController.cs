@@ -98,6 +98,24 @@ public class MenuController : MonoBehaviour
             scoreText.text = "";
             levelText.text = "";
             clearText.text = "All Gone!";
+
+            //Set starting values for a new game
+            if (!PlayerPrefs.HasKey("MaxHealth"))
+            {
+                PlayerPrefs.SetInt("MaxHealth", 100);
+            }
+            if (!PlayerPrefs.HasKey("StartTime"))
+            {
+                PlayerPrefs.SetFloat("StartTime", 180);
+            }
+            if (!PlayerPrefs.HasKey("StartBullets"))
+            {
+                PlayerPrefs.SetInt("StartBullets", 20);
+            }
+            if (!PlayerPrefs.HasKey("BaseLoot"))
+            {
+                PlayerPrefs.SetInt("BaseLoot", 5);
+            }
         }
         else
         {

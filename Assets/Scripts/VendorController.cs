@@ -24,23 +24,27 @@ public class VendorController : MonoBehaviour
     public Text lanternPriceTag;
     public Text mapPriceTag;
 
-    public float mouseY;
-    public float mouseX;
+    public bool infiniteLoot;
+
+    float mouseY;
+    float mouseX;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        //Set the price tags
         bulletPriceTag.text = "$" + bulletCost;
         armorPriceTag.text = "$" + armorCost;
         oilPriceTag.text = "$" + oilCost;
         bloodPriceTag.text = "$" + bloodCost;
         lanternPriceTag.text = "$" + lanternCost;
         mapPriceTag.text = "$" + mapCost;
-        
 
+        
         StatController.loot = PlayerPrefs.GetInt("Wealth");
+
+        infiniteLoot = false;
 
         Time.timeScale = 0;
     }
@@ -175,7 +179,7 @@ public class VendorController : MonoBehaviour
     //Buy some health
     public void BuyArmor()
     {
-        if (StatController.loot >= armorCost)
+        if (StatController.loot >= armorCost || infiniteLoot)
         {
             StatController.loot -= armorCost;
             StatController.health += 30;
@@ -187,7 +191,7 @@ public class VendorController : MonoBehaviour
     //Buy some more time
     public void BuyOil()
     {
-        if (StatController.loot >= oilCost)
+        if (StatController.loot >= oilCost || infiniteLoot)
         {
             StatController.loot -= oilCost;
             StatController.totalTime += 60;
@@ -197,32 +201,32 @@ public class VendorController : MonoBehaviour
     //Upgrade Loot
     public void BuyMap()
     {
-        if (StatController.loot >= mapCost)
+        if (StatController.loot >= mapCost || infiniteLoot)
         {
             StatController.loot -= mapCost;
 
-            float currentMap = PlayerPrefs.GetFloat("BaseLoot");
-            PlayerPrefs.SetFloat("BaseLoot", currentMap + 2);
+            int currentMap = PlayerPrefs.GetInt("BaseLoot");
+            PlayerPrefs.SetInt("BaseLoot", currentMap + 2);
         }
     }
 
-    //Upgrade Lantern
+    //Upgrade Health
     public void BuyBlood()
     {
-        if (StatController.loot >= bloodCost)
+        if (StatController.loot >= bloodCost || infiniteLoot)
         {
             StatController.loot -= bloodCost;
             StatController.health += 10;
 
-            float currentLantern = PlayerPrefs.GetFloat("MaxHealth");
-            PlayerPrefs.SetFloat("MaxHealth", currentLantern + 10);
+            int currentHealth = PlayerPrefs.GetInt("MaxHealth");
+            PlayerPrefs.SetInt("MaxHealth", currentHealth + 10);
         }
     }
 
     //Upgrade Lantern
     public void BuyLantern()
     {
-        if (StatController.loot >= lanternCost)
+        if (StatController.loot >= lanternCost || infiniteLoot)
         {
             StatController.loot -= lanternCost;
             StatController.totalTime += 60;

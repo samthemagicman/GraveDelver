@@ -138,19 +138,21 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Health"))
         {
-            if (StatController.health < 100)
+            int maxHealth = PlayerPrefs.GetInt("MaxHealth");
+            if (StatController.health < maxHealth)
             {
                 Destroy(other, 0f);
                 other.gameObject.SetActive(false);
             }
 
-            if (StatController.health > 80)
-            {
-                StatController.health = 100;
-            }
-            else
+            if (StatController.health + 20 < maxHealth)
             {
                 StatController.health += 20;
+            }
+
+            else if (StatController.health < maxHealth)
+            {
+                StatController.health = maxHealth;
             }
         }
     }
