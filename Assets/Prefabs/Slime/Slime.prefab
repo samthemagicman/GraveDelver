@@ -117,7 +117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dead: 0
-  health: 100
+  health: 60
+  speed: 2
 --- !u!50 &1592106606803674561
 Rigidbody2D:
   serializedVersion: 4
