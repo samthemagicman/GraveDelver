@@ -108,7 +108,7 @@ public class MenuController : MonoBehaviour
             }
             if (!PlayerPrefs.HasKey("BaseLoot"))
             {
-                PlayerPrefs.SetInt("BaseLoot", 5);
+                PlayerPrefs.SetInt("BaseLoot", 0);
             }
         }
         else
