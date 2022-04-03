@@ -12,7 +12,7 @@ public class BetweenController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        level.text = "Now Entering Level " + LevelDesigner.level;
+        level.text = "Now Entering Level " + (LevelDesigner.level + 1);
 
         string loot;
         if (StatController.loot == 0)
@@ -43,9 +43,7 @@ public class BetweenController : MonoBehaviour
     //Leave the game with what you have
     public void Leave()
     {
-        //Decrement Level as it is incremented upon exit
-        LevelDesigner.level--;
-
+        
         //Track your deeds.
         int wealth = StatController.loot;
         wealth += PlayerPrefs.GetInt("Wealth");

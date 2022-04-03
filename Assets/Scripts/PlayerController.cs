@@ -129,7 +129,8 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(other, 0f);
 
-            int lootValue = (int)Random.Range(-2, 3);
+            int level = LevelDesigner.level;
+            int lootValue = (int)Random.Range(level, level + 5);
             lootValue += PlayerPrefs.GetInt("BaseLoot");
             StatController.loot += lootValue;
             other.gameObject.SetActive(false);

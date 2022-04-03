@@ -21,15 +21,8 @@ public class LevelDesigner : MonoBehaviour
     void Start()
     {
 
-        //Level Testing
-        if (level == 0)
-        {
-            level = 7;
-        }
-        else if (level != 1)
-        {
-            level++;
-        }
+        level++;
+        
 
         //Set time here to avoid a glitch
         if (startingTime != 0)
@@ -55,9 +48,9 @@ public class LevelDesigner : MonoBehaviour
                     CreatePickup(position);
                 }
 
-                
 
-                int maxEnemies = (fullness + 1) * (level / 5 + 1);
+                int levelModifier = ((int)Random.Range(level - 2, level + 3)) /4 + 1;
+                int maxEnemies = (fullness + 1) * (levelModifier);
                 int Enemies = (int)Random.Range(fullness, maxEnemies + 1);
 
 
