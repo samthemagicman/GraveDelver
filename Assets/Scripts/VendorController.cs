@@ -168,7 +168,7 @@ public class VendorController : MonoBehaviour
         if (mouseX > 0 && mouseX < 1)
         {
             //Turn head towards mouse
-            float headPos = mouseX / 2f - 0.25f;
+            float headPos = 0.35f * (mouseX - 0.5f);
             Vector3 position = new Vector3(headPos, 3.2f, -2.81f);
             head.transform.position = position;
         }
