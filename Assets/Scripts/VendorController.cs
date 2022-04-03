@@ -24,7 +24,10 @@ public class VendorController : MonoBehaviour
     public Text lanternPriceTag;
     public Text mapPriceTag;
 
+    public GameObject head;
+
     public bool infiniteLoot;
+
 
     float mouseY;
     float mouseX;
@@ -49,8 +52,6 @@ public class VendorController : MonoBehaviour
         lanternPriceTag.text = "$" + lanternCost;
         mapPriceTag.text = "$" + mapCost;
 
-        
-
         infiniteLoot = false;
 
         Time.timeScale = 0;
@@ -59,6 +60,9 @@ public class VendorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
+        //Choose Dialogue Based on Mouse Position
         mouseX = Input.mousePosition.x/ Screen.width;
         mouseY = Input.mousePosition.y/ Screen.height;
 
@@ -77,6 +81,7 @@ public class VendorController : MonoBehaviour
                 }
 
                 dialogue.text = response;
+
             }
 
             //Extra Health
@@ -90,6 +95,7 @@ public class VendorController : MonoBehaviour
                 }
 
                 dialogue.text = response;
+
             }
 
             //Extra Light
@@ -103,9 +109,10 @@ public class VendorController : MonoBehaviour
                 }
 
                 dialogue.text = response;
+
             }
 
-            //Increase loot gain
+            //Increase Max. Health
             else if (mouseX > 0.525 && mouseX < 0.595)
             {
                 string response = "That is Ghoul Blood. It will inure you against their pain.\n For $" + bloodCost + ", it will increase your health by ten for all subsequent delves.";
@@ -116,9 +123,10 @@ public class VendorController : MonoBehaviour
                 }
 
                 dialogue.text = response;
+
             }
 
-            //Increase Max Health
+            //Increase Starting Light
             else if (mouseX > 0.65 && mouseX < 0.72)
             {
                 string response = "For $" + lanternCost + " I can refine your lantern.\nIt will burn a minute longer for all of your future delves.";
@@ -129,10 +137,11 @@ public class VendorController : MonoBehaviour
                 }
 
                 dialogue.text = response;
-                
+
+
             }
 
-            //Increase Starting Light
+            //Increase Loot Gain
             else if (mouseX > 0.775 && mouseX < 0.845)
             {
                 string response = "You know, for $" + mapCost + " I can give a map to a richer part of the catacombs.\nAll chests will be worth $2 more on delves there.";
@@ -143,6 +152,7 @@ public class VendorController : MonoBehaviour
                 }
 
                 dialogue.text = response;
+
             }
 
             else if (mouseX < 0.12 || mouseX > 0.875)
@@ -154,7 +164,18 @@ public class VendorController : MonoBehaviour
         {
             ResetSalesPitch();
         }
+
+        if (mouseX > 0 && mouseX < 1)
+        {
+            //Turn head towards mouse
+            float headPos = mouseX / 2f - 0.25f;
+            Vector3 position = new Vector3(headPos, 3.2f, -2.81f);
+            head.transform.position = position;
+        }
+        
+
     }
+
 
     //Start the game
     public void LoadGame()
