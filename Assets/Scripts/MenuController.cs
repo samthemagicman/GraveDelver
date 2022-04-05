@@ -22,6 +22,24 @@ public class MenuController : MonoBehaviour
     {
         verified = false;
 
+        //Set starting values for a new game
+        if (!PlayerPrefs.HasKey("MaxHealth"))
+        {
+            PlayerPrefs.SetInt("MaxHealth", 100);
+        }
+        if (!PlayerPrefs.HasKey("StartTime"))
+        {
+            PlayerPrefs.SetFloat("StartTime", 180);
+        }
+        if (!PlayerPrefs.HasKey("StartBullets"))
+        {
+            PlayerPrefs.SetInt("StartBullets", 20);
+        }
+        if (!PlayerPrefs.HasKey("BaseLoot"))
+        {
+            PlayerPrefs.SetInt("BaseLoot", 5);
+        }
+
         //Set Progress Text
         if (PlayerPrefs.HasKey("Wealth"))
         {
@@ -56,12 +74,6 @@ public class MenuController : MonoBehaviour
     //Load the game with the starting stats
     public void LoadGame()
     {
-        LevelDesigner.level = 1;
-
-        StatController.totalTime = 180;
-        StatController.health = 100;
-        StatController.bullets = 20;
-
         SceneManager.LoadScene("Vendor");
     }
 
@@ -80,6 +92,24 @@ public class MenuController : MonoBehaviour
             scoreText.text = "";
             levelText.text = "";
             clearText.text = "All Gone!";
+
+            //Set starting values for a new game
+            if (!PlayerPrefs.HasKey("MaxHealth"))
+            {
+                PlayerPrefs.SetInt("MaxHealth", 100);
+            }
+            if (!PlayerPrefs.HasKey("StartTime"))
+            {
+                PlayerPrefs.SetFloat("StartTime", 180);
+            }
+            if (!PlayerPrefs.HasKey("StartBullets"))
+            {
+                PlayerPrefs.SetInt("StartBullets", 20);
+            }
+            if (!PlayerPrefs.HasKey("BaseLoot"))
+            {
+                PlayerPrefs.SetInt("BaseLoot", 0);
+            }
         }
         else
         {

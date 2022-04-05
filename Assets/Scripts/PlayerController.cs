@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -127,26 +128,32 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Loot"))
         {
             Destroy(other, 0f);
-            StatController.loot += 5;
+
+            int level = LevelDesigner.level;
+            int lootValue = (int)Random.Range(level, level + 5);
+            lootValue += PlayerPrefs.GetInt("BaseLoot");
+            StatController.loot += lootValue;
             other.gameObject.SetActive(false);
 
         }
 
         if (other.gameObject.CompareTag("Health"))
         {
-            if (StatController.health < 100)
+            int maxHealth = PlayerPrefs.GetInt("MaxHealth");
+            if (StatController.health < maxHealth)
             {
                 Destroy(other, 0f);
                 other.gameObject.SetActive(false);
             }
 
-            if (StatController.health > 80)
-            {
-                StatController.health = 100;
-            }
-            else
+            if (StatController.health + 20 < maxHealth)
             {
                 StatController.health += 20;
+            }
+
+            else if (StatController.health < maxHealth)
+            {
+                StatController.health = maxHealth;
             }
         }
     }

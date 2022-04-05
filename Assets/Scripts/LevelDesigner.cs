@@ -13,6 +13,7 @@ public class LevelDesigner : MonoBehaviour
     public GameObject enemy;
 
     public static int level;
+    public static float startingTime;
 
 
 
@@ -20,10 +21,14 @@ public class LevelDesigner : MonoBehaviour
     void Start()
     {
 
-        //Level Testing
-        if (level == 0)
+        level++;
+        
+
+        //Set time here to avoid a glitch
+        if (startingTime != 0)
         {
-            level = 7;
+            StatController.totalTime = startingTime;
+            startingTime = 0;
         }
 
         //Fill Rooms
@@ -43,9 +48,9 @@ public class LevelDesigner : MonoBehaviour
                     CreatePickup(position);
                 }
 
-                
 
-                int maxEnemies = (fullness + 1) * (level / 5 + 1);
+                int levelModifier = ((int)Random.Range(level - 2, level + 3)) /4 + 1;
+                int maxEnemies = (fullness + 1) * (levelModifier);
                 int Enemies = (int)Random.Range(fullness, maxEnemies + 1);
 
 

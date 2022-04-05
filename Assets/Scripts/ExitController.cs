@@ -23,6 +23,9 @@ public class ExitController : MonoBehaviour
             float x = 14 * (location - 2);
             Vector3 position = new Vector3(x, 38, 0);
             transform.position = position;
+
+            Quaternion rotation = Quaternion.Euler(0, 0, 0);
+            transform.rotation = rotation;
         }
         //Sides
         else if (location > 7) //8 to 10
@@ -30,12 +33,18 @@ public class ExitController : MonoBehaviour
             float y = 14 * (location - 8) + 2;
             Vector3 position = new Vector3(36, y, 0);
             transform.position = position;
+
+            Quaternion rotation = Quaternion.Euler(0, 0, -90);
+            transform.rotation = rotation;
         }
         else //5 to 7
         {
             float y = 14 * (location - 5) + 2;
             Vector3 position = new Vector3(-36, y, 0);
             transform.position = position;
+
+            Quaternion rotation = Quaternion.Euler(0, 0, 90);
+            transform.rotation = rotation;
         }
     }
 
@@ -49,9 +58,7 @@ public class ExitController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            StatController.totalTime = StatController.totalTime - (Time.timeSinceLevelLoad);
-            LevelDesigner.level++;
-            SceneManager.LoadScene("Between Levels");
+            NextLevel();
         }
         else if (other.gameObject.CompareTag("Oil") ||
                 other.gameObject.CompareTag("Bullet") ||
@@ -61,5 +68,12 @@ public class ExitController : MonoBehaviour
             Destroy(other, 0f);
             other.gameObject.SetActive(false);
         }
+    }
+
+    void NextLevel()
+    {
+        
+        LevelDesigner.startingTime = StatController.totalTime - (Time.timeSinceLevelLoad);
+        SceneManager.LoadScene("Between Levels");
     }
 }
