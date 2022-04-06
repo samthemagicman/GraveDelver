@@ -48,8 +48,17 @@ public class LevelDesigner : MonoBehaviour
                     CreatePickup(position);
                 }
 
+                //The lower down you go, the more enemies there are
+                int levelModifier;
 
-                int levelModifier = ((int)Random.Range(level - 2, level + 3)) /4 + 1;
+                if (x == 0 && y == 0)
+                {
+                    levelModifier = 1;
+                }
+                else
+                {
+                    levelModifier = ((int)Random.Range(level - 2, level + 3)) / 4 + 1;
+                }
                 int maxEnemies = (fullness + 1) * (levelModifier);
                 int Enemies = (int)Random.Range(fullness, maxEnemies + 1);
 
