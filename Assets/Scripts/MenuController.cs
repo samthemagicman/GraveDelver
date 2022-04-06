@@ -11,11 +11,20 @@ public class MenuController : MonoBehaviour
     public Text scoreText;
     public Text levelText;
     public Text titleText;
-    public Text clearText;
 
     public Button startButton;
-    public Button resetButton;
 
+    //Elements in Options
+    public Button menuButton;
+    public Button resetButton;
+    public Button exitButton;
+
+    public Text credits;
+    public Image redBack;
+
+    public Text clearText;
+
+    //Changing between handbook & menu
     public Canvas handbook;
     public GameObject menu;
 
@@ -61,9 +70,6 @@ public class MenuController : MonoBehaviour
 
             startButton.enabled = false;
             startButton.transform.localScale = new Vector3(0, 0, 0);
-
-            resetButton.enabled = false;
-            resetButton.transform.localScale = new Vector3(0, 0, 0);
         }
 
         if (PlayerPrefs.HasKey("Lowest Level"))
@@ -75,7 +81,9 @@ public class MenuController : MonoBehaviour
         {
             levelText.text = "";
         }
-    
+
+        //Hide the options menu
+        HideOptions();
 
         //Set title to transparent
         titleText.color = new Color(255,255,255,0);
@@ -106,6 +114,47 @@ public class MenuController : MonoBehaviour
 
         Canvas bookCanvas = handbook.GetComponent<Canvas>();
         bookCanvas.enabled = true;
+    }
+
+    //Show Options Menu
+    public void ShowOptions()
+    {
+        menuButton.enabled = true;
+        menuButton.transform.localScale = new Vector3(1, 1, 0);
+
+        if (PlayerPrefs.HasKey("Wealth"))
+        {
+            resetButton.enabled = true;
+            resetButton.transform.localScale = new Vector3(1, 1, 0);
+        }
+
+        exitButton.enabled = true;
+        exitButton.transform.localScale = new Vector3(1, 1, 0);
+
+        credits.enabled = true;
+        credits.transform.localScale = new Vector3(1, 1, 0);
+
+        redBack.enabled = true;
+        redBack.transform.localScale = new Vector3(1, 1, 0);
+    }
+
+    //Hide Options Menu
+    public void HideOptions()
+    {
+        menuButton.enabled = false;
+        menuButton.transform.localScale = new Vector3(0, 0, 0);
+
+        resetButton.enabled = false;
+        resetButton.transform.localScale = new Vector3(0, 0, 0);
+
+        exitButton.enabled = false;
+        exitButton.transform.localScale = new Vector3(0, 0, 0);
+
+        credits.enabled = false;
+        credits.transform.localScale = new Vector3(0, 0, 0);
+
+        redBack.enabled = false;
+        redBack.transform.localScale = new Vector3(0, 0, 0);
     }
 
     //Clear progress
