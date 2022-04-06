@@ -13,6 +13,9 @@ public class MenuController : MonoBehaviour
     public Text titleText;
     public Text clearText;
 
+    public Canvas handbook;
+    public GameObject menu;
+
     public float fadeRate;
 
     public bool verified;
@@ -80,7 +83,12 @@ public class MenuController : MonoBehaviour
     //Go to the instructions
     public void Instruction()
     {
-        SceneManager.LoadScene("Instructions");
+        
+        Canvas menuCanvas = menu.GetComponent<Canvas>();
+        menuCanvas.enabled = false;
+
+        Canvas bookCanvas = handbook.GetComponent<Canvas>();
+        bookCanvas.enabled = true;
     }
 
     //Clear progress
