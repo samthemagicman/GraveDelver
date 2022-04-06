@@ -13,6 +13,9 @@ public class MenuController : MonoBehaviour
     public Text titleText;
     public Text clearText;
 
+    public Button startButton;
+    public Button resetButton;
+
     public Canvas handbook;
     public GameObject menu;
 
@@ -47,20 +50,32 @@ public class MenuController : MonoBehaviour
         if (PlayerPrefs.HasKey("Wealth"))
         {
             scoreText.text = "Wealth:\n" + PlayerPrefs.GetInt("Wealth");
+
+            resetButton.enabled = true;
+            resetButton.transform.localScale = new Vector3(1, 1, 0);
+
         }
         else
         {
             scoreText.text = "";
+
+            startButton.enabled = false;
+            startButton.transform.localScale = new Vector3(0, 0, 0);
+
+            resetButton.enabled = false;
+            resetButton.transform.localScale = new Vector3(0, 0, 0);
         }
 
         if (PlayerPrefs.HasKey("Lowest Level"))
         {
             levelText.text = "Lowest Level\nSurvived:\n" + PlayerPrefs.GetInt("Lowest Level");
+            
         }
         else
         {
             levelText.text = "";
         }
+    
 
         //Set title to transparent
         titleText.color = new Color(255,255,255,0);
@@ -83,7 +98,9 @@ public class MenuController : MonoBehaviour
     //Go to the instructions
     public void Instruction()
     {
-        
+        startButton.enabled = true;
+        startButton.transform.localScale = new Vector3(1, 1, 0);
+
         Canvas menuCanvas = menu.GetComponent<Canvas>();
         menuCanvas.enabled = false;
 

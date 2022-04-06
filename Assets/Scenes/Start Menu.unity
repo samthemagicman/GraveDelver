@@ -4871,7 +4871,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Instructions
+  m_Text: Handbook
 --- !u!222 &878558816
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5923,6 +5923,8 @@ MonoBehaviour:
   levelText: {fileID: 1758296742}
   titleText: {fileID: 756585408}
   clearText: {fileID: 1954826871}
+  startButton: {fileID: 1459974418}
+  resetButton: {fileID: 1156351013}
   handbook: {fileID: 193205551}
   menu: {fileID: 291555221}
   fadeRate: 10

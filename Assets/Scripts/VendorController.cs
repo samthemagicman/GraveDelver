@@ -30,7 +30,7 @@ public class VendorController : MonoBehaviour
 
 
     float mouseY;
-    float mouseX;
+    public float mouseX;
 
 
     // Start is called before the first frame update
@@ -71,7 +71,7 @@ public class VendorController : MonoBehaviour
         if (mouseY > 0.25 && mouseY < 0.40)
         {
             //Extra Bullets
-            if (mouseX > 0.15 && mouseX < 0.22)
+            if (mouseX > 0.17 && mouseX < 0.23)
             {
                 string response = "Oh, you need some bullets?\nThey're a case of ten bullets for $" + bulletCost + ".";
 
@@ -85,7 +85,7 @@ public class VendorController : MonoBehaviour
             }
 
             //Extra Health
-            else if (mouseX > 0.275 && mouseX < 0.345)
+            else if (mouseX > 0.285 && mouseX < 0.345)
             {
                 string response = "Ah, you want some armor to protect yourself from harm?\nFor $" + armorCost + ", I can give you thirty extra STARTING health.";
 
@@ -99,7 +99,7 @@ public class VendorController : MonoBehaviour
             }
 
             //Extra Light
-            else if (mouseX > 0.4 && mouseX < 0.47)
+            else if (mouseX > 0.4 && mouseX < 0.46)
             {
                 string response = "So, you're looking for more lamp oil for more time.\nIt's $" + oilCost + " for one minute's worth of oil.";
 
@@ -113,7 +113,7 @@ public class VendorController : MonoBehaviour
             }
 
             //Increase Max. Health
-            else if (mouseX > 0.525 && mouseX < 0.595)
+            else if (mouseX > 0.515 && mouseX < 0.575)
             {
                 string response = "That is Ghoul Blood. It will inure you against their pain.\n For $" + bloodCost + ", it will increase your health by ten for all subsequent delves.";
 
@@ -127,7 +127,7 @@ public class VendorController : MonoBehaviour
             }
 
             //Increase Starting Light
-            else if (mouseX > 0.65 && mouseX < 0.72)
+            else if (mouseX > 0.63 && mouseX < 0.69)
             {
                 string response = "For $" + lanternCost + " I can refine your lantern.\nIt will burn a minute longer for all of your future delves.";
 
@@ -142,9 +142,9 @@ public class VendorController : MonoBehaviour
             }
 
             //Increase Loot Gain
-            else if (mouseX > 0.775 && mouseX < 0.845)
+            else if (mouseX > 0.745 && mouseX < 0.805)
             {
-                string response = "You know, for $" + mapCost + " I can give a map to a richer part of the catacombs.\nAll chests will be worth $2 more on delves there.";
+                string response = "For $" + mapCost + " I can give a map to a richer part of the catacombs.\nAll chests will be worth $2 more on delves there.";
 
                 if (StatController.loot < mapCost)
                 {
