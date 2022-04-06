@@ -68,7 +68,7 @@ public class VendorController : MonoBehaviour
 
 
         //Mouse is in button row
-        if (mouseY > 0.15 && mouseY < 0.35)
+        if (mouseY > 0.25 && mouseY < 0.40)
         {
             //Extra Bullets
             if (mouseX > 0.15 && mouseX < 0.22)
