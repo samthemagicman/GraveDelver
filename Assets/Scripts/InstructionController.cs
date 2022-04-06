@@ -18,6 +18,9 @@ public class InstructionController : MonoBehaviour
     public GameObject heart;
     public GameObject Exit;
 
+    public GameObject parentMenu;
+    public GameObject currentMenu;
+
     string[] pages;
     string[] writing;
     int pageNum;
@@ -149,6 +152,10 @@ public class InstructionController : MonoBehaviour
     //Return to the main menu
     public void Menu()
     {
-        SceneManager.LoadScene("Start Menu");
+        Canvas bookCanvas = currentMenu.GetComponent<Canvas>();
+        bookCanvas.enabled = false;
+        
+        Canvas menuCanvas = parentMenu.GetComponent<Canvas>();
+        menuCanvas.enabled = true;
     }
 }
