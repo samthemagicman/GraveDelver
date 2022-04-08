@@ -13,6 +13,8 @@ public class GunController : MonoBehaviour
     public float outwardOffset = -0.085f;
     public Vector2 positionOffset = Vector2.zero;
 
+    AudioSource audioSource;
+
     public Animator animator;
 
     float lastTimeFireButtonDown = 0;
@@ -21,13 +23,14 @@ public class GunController : MonoBehaviour
 
     float currentAngle;
 
-    float accuracy = 10;
+    float accuracy = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         swordRenderer = sword.GetComponentInChildren<SpriteRenderer>();
         animator = sword.GetComponentInChildren<Animator>();
+        audioSource = sword.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -75,6 +78,10 @@ public class GunController : MonoBehaviour
 
     void FireBullet()
     {
+        float p = Random.Range(0.7f, 1.3f);
+        audioSource.pitch = p;
+        audioSource.PlayOneShot(audioSource.clip);
+
         //Decrement Bullets
         StatController.bullets--;
 
