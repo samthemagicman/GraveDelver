@@ -11,6 +11,8 @@ public class EndController : MonoBehaviour
     public Button again;
     public Button menu;
 
+    public static int lootCount;
+
     public static string fate;
 
     public float fadeRate;
@@ -18,7 +20,7 @@ public class EndController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        score.text = "You found " + StatController.loot + " Treasures\n";
+        score.text = "You found " + lootCount + " Treasures\n";
         
         if (LevelDesigner.level == 1)
         {

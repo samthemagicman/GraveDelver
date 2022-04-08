@@ -53,6 +53,7 @@ public class BetweenController : MonoBehaviour
             PlayerPrefs.SetInt("Lowest Level", LevelDesigner.level);
         }
 
+        EndController.lootCount = StatController.loot;
         StatController.ResetToDefault();
         //Track your fate
         string[] fateOptions = new string[3] {"you got out with your life.",
