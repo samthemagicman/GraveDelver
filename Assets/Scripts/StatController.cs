@@ -10,43 +10,90 @@ public class StatController : MonoBehaviour
     public static StatController singleton;
 
     public static float totalTime;
+    public static int lanternUpgradeCount
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("LanternUpgradeCount", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("LanternUpgradeCount", value);
+        }
+    }
     public static int health;
+    //The number of permanent health upgrades the player bought
+    public static int healthUpgradeCount
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("HealthUpgradeCount", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("HealthUpgradeCount", value);
+        }
+    }
+    public static int maxHealth
+    {
+        get
+        {
+            return 100 + PlayerPrefs.GetInt("HealthUpgradeCount", 0) * 10;
+        }
+    }
+    public static int temporaryHealthUpgrades = 0;
+
     public static int bullets;
+    
+    //Loot is the current loot the player has picked up in the delve
     public static int loot;
 
-    public Text timeText;
-    public Text healthText;
-    public Text bulletText;
-    public Text lootText;
+    //Wealth is the players' saved wealth
+    public static int wealth
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("Wealth", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("Wealth", value);
+        }
+    }
 
     public float damageDebounce = 0;
 
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        if (singleton != null)
+        {
+            Destroy(this);
+            return;
+        }
+        DontDestroyOnLoad(this);
         singleton = this;
 
-        if (LevelDesigner.level == 0)
-        {
-            totalTime = 100;
-            health = 100;
-            bullets = 20;
-            loot = 0;
-        }
+        // Load initial stats
+        ResetToDefault();
+    }
+
+    public static void ResetToDefault()
+    {
+        totalTime = 180 + lanternUpgradeCount * 60;
+        health = maxHealth;
+        bullets = 20;
+        loot = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthText.text = health + "";
-        bulletText.text = bullets + "";
-        lootText.text = loot + "";
 
         setTimeText();
 
         if (health == 0)
         {
+            health = maxHealth; // fix looping
             string[] fateOptions = new string[3] {"you were torn apart.",
                                                     "you were eaten alive.",
                                                     "you were picked clean." };
@@ -57,6 +104,7 @@ public class StatController : MonoBehaviour
 
         else if (totalTime < Time.timeSinceLevelLoad)
         {
+            totalTime = 1000; // fix looping
             string[] fateOptions = new string[3] {"you fell to the darkness.",
                                                     "you could only hear your death.",
                                                     "the shadows took you." };
@@ -81,7 +129,10 @@ public class StatController : MonoBehaviour
 
         time += seconds;
 
-        timeText.text = time;
+        if (StatUI.singleton != null)
+        {
+            StatUI.singleton.SetTimeText(time);
+        }
     }
 
     public void damagePlayer(int dmg) {

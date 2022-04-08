@@ -35,17 +35,10 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         verified = false;
 
         //Set starting values for a new game
-        if (!PlayerPrefs.HasKey("MaxHealth"))
-        {
-            PlayerPrefs.SetInt("MaxHealth", 100);
-        }
-        if (!PlayerPrefs.HasKey("StartTime"))
-        {
-            PlayerPrefs.SetFloat("StartTime", 180);
-        }
         if (!PlayerPrefs.HasKey("StartBullets"))
         {
             PlayerPrefs.SetInt("StartBullets", 20);
@@ -58,7 +51,7 @@ public class MenuController : MonoBehaviour
         //Set Progress Text
         if (PlayerPrefs.HasKey("Wealth"))
         {
-            scoreText.text = "Wealth:\n" + PlayerPrefs.GetInt("Wealth");
+            scoreText.text = "Wealth:\n" + StatController.wealth;
 
             resetButton.enabled = true;
             resetButton.transform.localScale = new Vector3(1, 1, 0);
@@ -68,8 +61,8 @@ public class MenuController : MonoBehaviour
         {
             scoreText.text = "";
 
-            startButton.enabled = false;
-            startButton.transform.localScale = new Vector3(0, 0, 0);
+           // startButton.enabled = false;
+            //startButton.transform.localScale = new Vector3(0, 0, 0);
         }
 
         if (PlayerPrefs.HasKey("Lowest Level"))
@@ -82,11 +75,18 @@ public class MenuController : MonoBehaviour
             levelText.text = "";
         }
 
+        StatController.ResetToDefault(); // Load all stats properly
+
         //Hide the options menu
         HideOptions();
 
         //Set title to transparent
         titleText.color = new Color(255,255,255,0);
+    }
+
+    public void IncreaseWealth()
+    {
+        StatController.wealth += 10;
     }
 
     // Update is called once per frame
@@ -168,14 +168,8 @@ public class MenuController : MonoBehaviour
             clearText.text = "All Gone!";
 
             //Set starting values for a new game
-            if (!PlayerPrefs.HasKey("MaxHealth"))
-            {
-                PlayerPrefs.SetInt("MaxHealth", 100);
-            }
-            if (!PlayerPrefs.HasKey("StartTime"))
-            {
-                PlayerPrefs.SetFloat("StartTime", 180);
-            }
+            PlayerPrefs.SetFloat("LanternUpgradeCount", 0);
+            PlayerPrefs.SetFloat("HealthUpgradeCount", 0);
             if (!PlayerPrefs.HasKey("StartBullets"))
             {
                 PlayerPrefs.SetInt("StartBullets", 20);

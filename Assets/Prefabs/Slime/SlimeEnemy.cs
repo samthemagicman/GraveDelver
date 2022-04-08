@@ -90,6 +90,7 @@ public class SlimeEnemy : MonoBehaviour, IEnemy
             dead = true;
             inAir = false;
             animator.SetTrigger("Death");
+            Destroy(GetComponent<Collider2D>());
         }
     }
 

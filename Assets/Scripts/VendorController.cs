@@ -16,7 +16,6 @@ public class VendorController : MonoBehaviour
     public int lanternCost;
     public int mapCost;
 
-
     public Text bulletPriceTag;
     public Text armorPriceTag;
     public Text oilPriceTag;
@@ -37,12 +36,10 @@ public class VendorController : MonoBehaviour
     void Start()
     {
         LevelDesigner.level = 0;
-        LevelDesigner.startingTime = PlayerPrefs.GetFloat("StartTime");
+        //LevelDesigner.startingTime = PlayerPrefs.GetFloat("StartTime");
 
-        StatController.totalTime = PlayerPrefs.GetFloat("StartTime");
-        StatController.health = PlayerPrefs.GetInt("MaxHealth");
+        //StatController.totalTime = PlayerPrefs.GetFloat("StartTime");
         StatController.bullets = PlayerPrefs.GetInt("StartBullets");
-        StatController.loot = PlayerPrefs.GetInt("Wealth");
 
         //Set the price tags
         bulletPriceTag.text = "$" + bulletCost;
@@ -75,7 +72,7 @@ public class VendorController : MonoBehaviour
             {
                 string response = "Oh, you need some bullets?\nThey're a case of ten bullets for $" + bulletCost + ".";
 
-                if (StatController.loot < bulletCost)
+                if (StatController.wealth < bulletCost)
                 {
                     response += "\nBut it looks like you don't have enough for even one case.";
                 }
@@ -89,7 +86,7 @@ public class VendorController : MonoBehaviour
             {
                 string response = "Ah, you want some armor to protect yourself from harm?\nFor $" + armorCost + ", I can give you thirty extra STARTING health.";
 
-                if (StatController.loot < armorCost)
+                if (StatController.wealth < armorCost)
                 {
                     response += "\nBut it looks like you don't have enough for that.";
                 }
@@ -103,7 +100,7 @@ public class VendorController : MonoBehaviour
             {
                 string response = "So, you're looking for more lamp oil for more time.\nIt's $" + oilCost + " for one minute's worth of oil.";
 
-                if (StatController.loot < oilCost)
+                if (StatController.wealth < oilCost)
                 {
                     response += "\nOh, but it looks like that's a bit out of your price range.";
                 }
@@ -117,7 +114,7 @@ public class VendorController : MonoBehaviour
             {
                 string response = "That is Ghoul Blood. It will inure you against their pain.\n For $" + bloodCost + ", it will increase your health by ten for all subsequent delves.";
 
-                if (StatController.loot < bloodCost)
+                if (StatController.wealth < bloodCost)
                 {
                     response += "\nBut it looks like this rarity is not within your budget.";
                 }
@@ -131,7 +128,7 @@ public class VendorController : MonoBehaviour
             {
                 string response = "For $" + lanternCost + " I can refine your lantern.\nIt will burn a minute longer for all of your future delves.";
 
-                if (StatController.loot < lanternCost)
+                if (StatController.wealth < lanternCost)
                 {
                     response += "\nBut it looks like that is outside of your price range.";
                 }
@@ -146,7 +143,7 @@ public class VendorController : MonoBehaviour
             {
                 string response = "For $" + mapCost + " I can give a map to a richer part of the catacombs.\nAll chests will be worth $2 more on delves there.";
 
-                if (StatController.loot < mapCost)
+                if (StatController.wealth < mapCost)
                 {
                     response += "\nBut looking at how much you have, that'll have to wait";
                 }
@@ -180,7 +177,7 @@ public class VendorController : MonoBehaviour
     //Start the game
     public void LoadGame()
     {
-        PlayerPrefs.SetInt("Wealth", StatController.loot);
+        //PlayerPrefs.SetInt("Wealth", StatController.loot);
         StatController.loot = 0;
         Time.timeScale = 1;
         SceneManager.LoadScene("RandomMap");
@@ -196,9 +193,9 @@ public class VendorController : MonoBehaviour
     //Buy some bullets
     public void BuyBullets()
     {
-        if (StatController.loot >= bulletCost)
+        if (StatController.wealth >= bulletCost)
         {
-            StatController.loot -= bulletCost;
+            StatController.wealth -= bulletCost;
             StatController.bullets += 10;
         }
 
@@ -207,9 +204,9 @@ public class VendorController : MonoBehaviour
     //Buy some health
     public void BuyArmor()
     {
-        if (StatController.loot >= armorCost || infiniteLoot)
+        if (StatController.wealth >= armorCost || infiniteLoot)
         {
-            StatController.loot -= armorCost;
+            StatController.wealth -= armorCost;
             StatController.health += 30;
         }
 
@@ -219,9 +216,9 @@ public class VendorController : MonoBehaviour
     //Buy some more time
     public void BuyOil()
     {
-        if (StatController.loot >= oilCost || infiniteLoot)
+        if (StatController.wealth >= oilCost || infiniteLoot)
         {
-            StatController.loot -= oilCost;
+            StatController.wealth -= oilCost;
             StatController.totalTime += 60;
         }
     }
@@ -229,9 +226,9 @@ public class VendorController : MonoBehaviour
     //Upgrade Loot
     public void BuyMap()
     {
-        if (StatController.loot >= mapCost || infiniteLoot)
+        if (StatController.wealth >= mapCost || infiniteLoot)
         {
-            StatController.loot -= mapCost;
+            StatController.wealth -= mapCost;
 
             int currentMap = PlayerPrefs.GetInt("BaseLoot");
             PlayerPrefs.SetInt("BaseLoot", currentMap + 2);
@@ -241,26 +238,24 @@ public class VendorController : MonoBehaviour
     //Upgrade Health
     public void BuyBlood()
     {
-        if (StatController.loot >= bloodCost || infiniteLoot)
+        if (StatController.wealth >= bloodCost || infiniteLoot)
         {
-            StatController.loot -= bloodCost;
-            StatController.health += 10;
-
-            int currentHealth = PlayerPrefs.GetInt("MaxHealth");
-            PlayerPrefs.SetInt("MaxHealth", currentHealth + 10);
+            StatController.wealth -= bloodCost;
+            StatController.healthUpgradeCount += 1;
         }
     }
 
     //Upgrade Lantern
     public void BuyLantern()
     {
-        if (StatController.loot >= lanternCost || infiniteLoot)
+        if (StatController.wealth >= lanternCost || infiniteLoot)
         {
-            StatController.loot -= lanternCost;
+            StatController.wealth -= lanternCost;
             StatController.totalTime += 60;
+            StatController.lanternUpgradeCount += 1;
 
-            float currentLantern = PlayerPrefs.GetFloat("StartTime");
-            PlayerPrefs.SetFloat("StartTime", currentLantern + 60);
+            //float currentLantern = PlayerPrefs.GetFloat("StartTime");
+            //PlayerPrefs.SetFloat("StartTime", currentLantern + 60);
         }
     }
 }

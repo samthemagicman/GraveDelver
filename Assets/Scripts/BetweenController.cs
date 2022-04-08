@@ -45,9 +45,7 @@ public class BetweenController : MonoBehaviour
     {
         
         //Track your deeds.
-        int wealth = StatController.loot;
-        wealth += PlayerPrefs.GetInt("Wealth");
-        PlayerPrefs.SetInt("Wealth", wealth);
+        StatController.wealth += StatController.loot;
         
 
         if (!PlayerPrefs.HasKey("Lowest Level") || LevelDesigner.level > PlayerPrefs.GetInt("Lowest Level"))
@@ -55,7 +53,7 @@ public class BetweenController : MonoBehaviour
             PlayerPrefs.SetInt("Lowest Level", LevelDesigner.level);
         }
 
-
+        StatController.ResetToDefault();
         //Track your fate
         string[] fateOptions = new string[3] {"you got out with your life.",
                                                     "you ran like a coward.",

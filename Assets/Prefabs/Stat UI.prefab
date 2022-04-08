@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8684016166478032962}
   - component: {fileID: 8684016166478032989}
   - component: {fileID: 8684016166478032988}
-  - component: {fileID: 8684016166478032960}
+  - component: {fileID: 2353470505117212850}
   m_Layer: 5
   m_Name: Stat UI
   m_TagString: Untagged
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8684016166478032960
+--- !u!114 &2353470505117212850
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,14 +112,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8684016166478032991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db98ebd616d7dcf45b7757c9a2afcb21, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f9839b6c06361544b4af93403c89176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayWealth: 0
+  displayMaxHealth: 0
   timeText: {fileID: 8684016167706681616}
   healthText: {fileID: 8684016166674707420}
   bulletText: {fileID: 8684016166942743348}
   lootText: {fileID: 8684016166795770970}
-  damageDebounce: 0
 --- !u!1 &8684016166674707422
 GameObject:
   m_ObjectHideFlags: 0

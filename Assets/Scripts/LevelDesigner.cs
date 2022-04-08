@@ -25,11 +25,11 @@ public class LevelDesigner : MonoBehaviour
         
 
         //Set time here to avoid a glitch
-        if (startingTime != 0)
+       /* if (startingTime != 0)
         {
             StatController.totalTime = startingTime;
             startingTime = 0;
-        }
+        }*/
 
         //Fill Rooms
         for (float x = -2; x < 3; x++)
