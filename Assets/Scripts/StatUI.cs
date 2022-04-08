@@ -32,10 +32,24 @@ public class StatUI : MonoBehaviour
             lootText.text = StatController.wealth + "";
         }
 
+        setTimeText();
     }
 
-    public void SetTimeText(string time)
+    void setTimeText()
     {
+        int seconds = (int) StatController.totalTime - (int)(Time.timeSinceLevelLoad);
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+
+        string time = minutes + ":";
+
+        if (seconds < 10)
+        {
+            time += "0";
+        }
+
+        time += seconds;
+
         timeText.text = time;
     }
     

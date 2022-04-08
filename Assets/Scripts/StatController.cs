@@ -21,6 +21,7 @@ public class StatController : MonoBehaviour
             PlayerPrefs.SetInt("LanternUpgradeCount", value);
         }
     }
+
     public static int health;
     //The number of permanent health upgrades the player bought
     public static int healthUpgradeCount
@@ -41,7 +42,6 @@ public class StatController : MonoBehaviour
             return 100 + PlayerPrefs.GetInt("HealthUpgradeCount", 0) * 10;
         }
     }
-    public static int temporaryHealthUpgrades = 0;
 
     public static int bullets;
     
@@ -88,9 +88,6 @@ public class StatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        setTimeText();
-
         if (health == 0)
         {
             health = maxHealth; // fix looping
@@ -111,27 +108,6 @@ public class StatController : MonoBehaviour
 
             EndController.fate = fateOptions[(int)Random.Range(0, 3)];
             SceneManager.LoadScene("Game Over");
-        }
-    }
-
-    void setTimeText()
-    {
-        int seconds = (int)totalTime - (int)(Time.timeSinceLevelLoad);
-        int minutes = seconds / 60;
-        seconds = seconds % 60;
-
-        string time = minutes + ":";
-
-        if (seconds < 10)
-        {
-            time += "0";
-        }
-
-        time += seconds;
-
-        if (StatUI.singleton != null)
-        {
-            StatUI.singleton.SetTimeText(time);
         }
     }
 
