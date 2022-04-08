@@ -1,15 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Bullet : MonoBehaviour
 {
+    public AudioClip hitWallSound;
+    public AudioClip hitEnemySound;
+    AudioSource audioSource;
     public GameObject bulletHitParticle;
 
     float timeCreated;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         timeCreated = Time.realtimeSinceStartup;
     }
 
@@ -19,7 +24,12 @@ public class Bullet : MonoBehaviour
         if (Time.realtimeSinceStartup - timeCreated > 5)
         {
             Destroy(gameObject);
-        } 
+        }
+    }
+
+    void PlaySound()
+    {
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -33,7 +43,16 @@ public class Bullet : MonoBehaviour
         {
             slimeEnemy.Knockback(PlayerController.singleton.transform.position);
             slimeEnemy.Damage(25);
+
+            audioSource.PlayOneShot(hitEnemySound);
+        } else
+        {
+            audioSource.PlayOneShot(hitWallSound);
         }
-        Destroy(gameObject);
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        Destroy(GetComponent<Light2D>());
+        Destroy(GetComponent<Rigidbody2D>());
+        Destroy(gameObject, 1);
     }
 }

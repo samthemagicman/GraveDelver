@@ -14,6 +14,7 @@ public class GunController : MonoBehaviour
     public Vector2 positionOffset = Vector2.zero;
 
     AudioSource audioSource;
+    public AudioClip fireSound;
 
     public Animator animator;
 
@@ -80,7 +81,7 @@ public class GunController : MonoBehaviour
     {
         float p = Random.Range(0.7f, 1.3f);
         audioSource.pitch = p;
-        audioSource.PlayOneShot(audioSource.clip);
+        audioSource.PlayOneShot(fireSound);
 
         //Decrement Bullets
         StatController.bullets--;
