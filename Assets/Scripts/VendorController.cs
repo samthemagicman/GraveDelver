@@ -44,8 +44,6 @@ public class VendorController : MonoBehaviour
         LevelDesigner.level = 0;
         //LevelDesigner.startingTime = PlayerPrefs.GetFloat("StartTime");
 
-        //StatController.totalTime = PlayerPrefs.GetFloat("StartTime");
-        StatController.bullets = PlayerPrefs.GetInt("StartBullets");
 
         //Set the price tags
         UpdateItemPricesAndQuantity();
