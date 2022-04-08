@@ -97001,6 +97001,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2080354299, guid: 93415c1d57a54794f81d9103b24c261d, type: 3}
+      propertyPath: m_Volume
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4646987959878820884, guid: 93415c1d57a54794f81d9103b24c261d,
         type: 3}
       propertyPath: fireSound
