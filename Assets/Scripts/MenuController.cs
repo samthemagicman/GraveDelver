@@ -168,8 +168,10 @@ public class MenuController : MonoBehaviour
             clearText.text = "All Gone!";
 
             //Set starting values for a new game
-            PlayerPrefs.SetFloat("LanternUpgradeCount", 0);
-            PlayerPrefs.SetFloat("HealthUpgradeCount", 0);
+            StatController.bulletCaseUpgradeCount = 0;
+            StatController.lanternUpgradeCount = 0;
+            StatController.healthUpgradeCount = 0;
+            StatController.treasureUpgradeCount = 0;
             if (!PlayerPrefs.HasKey("StartBullets"))
             {
                 PlayerPrefs.SetInt("StartBullets", 20);

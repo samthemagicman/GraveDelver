@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,18 +11,20 @@ public class VendorController : MonoBehaviour
     public Text dialogue;
 
     public int bulletCost;
+    public int bulletCaseCost;
     public int armorCost;
     public int oilCost;
     public int bloodCost;
     public int lanternCost;
     public int mapCost;
 
-    public Text bulletPriceTag;
-    public Text armorPriceTag;
-    public Text oilPriceTag;
-    public Text bloodPriceTag;
-    public Text lanternPriceTag;
-    public Text mapPriceTag;
+    public Button bulletButton;
+    public Button bulletCaseButton;
+    public Button armorButton;
+    public Button oilButton;
+    public Button bloodButton;
+    public Button lanternButton;
+    public Button mapButton;
 
     public GameObject head;
 
@@ -31,6 +34,9 @@ public class VendorController : MonoBehaviour
     float mouseY;
     public float mouseX;
 
+    int bulletsBought = 0;
+    int armorBought = 0;
+    int oilBought = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -42,125 +48,106 @@ public class VendorController : MonoBehaviour
         StatController.bullets = PlayerPrefs.GetInt("StartBullets");
 
         //Set the price tags
-        bulletPriceTag.text = "$" + bulletCost;
-        armorPriceTag.text = "$" + armorCost;
-        oilPriceTag.text = "$" + oilCost;
-        bloodPriceTag.text = "$" + bloodCost;
-        lanternPriceTag.text = "$" + lanternCost;
-        mapPriceTag.text = "$" + mapCost;
+        UpdateItemPricesAndQuantity();
 
         infiniteLoot = false;
 
         Time.timeScale = 0;
     }
 
+    void UpdateItemPricesAndQuantity()
+    {
+        bulletButton.GetComponentInChildren<Text>().text = "$" + bulletCost + "("+ bulletsBought + ")";
+        armorButton.GetComponentInChildren<Text>().text = "$" + armorCost + "("+ armorBought + ")";
+        oilButton.GetComponentInChildren<Text>().text = "$" + oilCost + "("+ oilBought + ")";
+        bloodButton.GetComponentInChildren<Text>().text = "$" + bloodCost + "("+StatController.healthUpgradeCount+")";
+        lanternButton.GetComponentInChildren<Text>().text = "$" + lanternCost + "(" + StatController.lanternUpgradeCount + ")";
+        mapButton.GetComponentInChildren<Text>().text = "$" + mapCost + "(" + StatController.treasureUpgradeCount + ")";
+        bulletCaseButton.GetComponentInChildren<Text>().text = "$" + mapCost + "(" + StatController.bulletCaseUpgradeCount + ")";
+    }
+
+    public void OnButtonEnter(GameObject btn)
+    {
+        if (btn == bulletButton.gameObject)
+        {
+            string response = "Oh, you need some bullets?\nThey're a case of ten bullets for $" + bulletCost + ".";
+
+            if (StatController.wealth < bulletCost)
+            {
+                response += "\nBut it looks like you don't have enough for even one case.";
+            }
+
+            dialogue.text = response;
+        } else if (btn == armorButton.gameObject)
+        {
+            string response = "Ah, you want some armor to protect yourself from harm?\nFor $" + armorCost + ", I can give you thirty extra STARTING health.";
+
+            if (StatController.wealth < armorCost)
+            {
+                response += "\nBut it looks like you don't have enough for that.";
+            }
+
+            dialogue.text = response;
+        } else if (btn == oilButton.gameObject)
+        {
+            string response = "So, you're looking for more lamp oil for more time.\nIt's $" + oilCost + " for one minute's worth of oil.";
+
+            if (StatController.wealth < oilCost)
+            {
+                response += "\nOh, but it looks like that's a bit out of your price range.";
+            }
+
+            dialogue.text = response;
+        } else if (btn == bloodButton.gameObject)
+        {
+            string response = "That is Ghoul Blood. It will inure you against their pain.\n For $" + bloodCost + ", it will increase your health by ten for all subsequent delves.";
+
+            if (StatController.wealth < bloodCost)
+            {
+                response += "\nBut it looks like this rarity is not within your budget.";
+            }
+
+            dialogue.text = response;
+        } else if (btn == lanternButton.gameObject)
+        {
+            string response = "For $" + lanternCost + " I can refine your lantern.\nIt will burn a minute longer for all of your future delves.";
+
+            if (StatController.wealth < lanternCost)
+            {
+                response += "\nBut it looks like that is outside of your price range.";
+            }
+
+            dialogue.text = response;
+        } else if (btn == mapButton.gameObject)
+        {
+            string response = "For $" + mapCost + " I can give a map to a richer part of the catacombs.\nAll chests will be worth $2 more on delves there.";
+
+            if (StatController.wealth < mapCost)
+            {
+                response += "\nBut looking at how much you have, that'll have to wait.";
+            }
+
+            dialogue.text = response;
+        }
+        else if (btn == bulletCaseButton.gameObject)
+        {
+            string response = "Ah, a very good upgrade indeed.\nAll bullet cases will have 3 more bullets on future delves.";
+
+            if (StatController.wealth < mapCost)
+            {
+                response += "\nBut it looks like you can't afford it.";
+            }
+
+            dialogue.text = response;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
-
         //Choose Dialogue Based on Mouse Position
         mouseX = Input.mousePosition.x/ Screen.width;
         mouseY = Input.mousePosition.y/ Screen.height;
-
-
-        //Mouse is in button row
-        if (mouseY > 0.25 && mouseY < 0.40)
-        {
-            //Extra Bullets
-            if (mouseX > 0.17 && mouseX < 0.23)
-            {
-                string response = "Oh, you need some bullets?\nThey're a case of ten bullets for $" + bulletCost + ".";
-
-                if (StatController.wealth < bulletCost)
-                {
-                    response += "\nBut it looks like you don't have enough for even one case.";
-                }
-
-                dialogue.text = response;
-
-            }
-
-            //Extra Health
-            else if (mouseX > 0.285 && mouseX < 0.345)
-            {
-                string response = "Ah, you want some armor to protect yourself from harm?\nFor $" + armorCost + ", I can give you thirty extra STARTING health.";
-
-                if (StatController.wealth < armorCost)
-                {
-                    response += "\nBut it looks like you don't have enough for that.";
-                }
-
-                dialogue.text = response;
-
-            }
-
-            //Extra Light
-            else if (mouseX > 0.4 && mouseX < 0.46)
-            {
-                string response = "So, you're looking for more lamp oil for more time.\nIt's $" + oilCost + " for one minute's worth of oil.";
-
-                if (StatController.wealth < oilCost)
-                {
-                    response += "\nOh, but it looks like that's a bit out of your price range.";
-                }
-
-                dialogue.text = response;
-
-            }
-
-            //Increase Max. Health
-            else if (mouseX > 0.515 && mouseX < 0.575)
-            {
-                string response = "That is Ghoul Blood. It will inure you against their pain.\n For $" + bloodCost + ", it will increase your health by ten for all subsequent delves.";
-
-                if (StatController.wealth < bloodCost)
-                {
-                    response += "\nBut it looks like this rarity is not within your budget.";
-                }
-
-                dialogue.text = response;
-
-            }
-
-            //Increase Starting Light
-            else if (mouseX > 0.63 && mouseX < 0.69)
-            {
-                string response = "For $" + lanternCost + " I can refine your lantern.\nIt will burn a minute longer for all of your future delves.";
-
-                if (StatController.wealth < lanternCost)
-                {
-                    response += "\nBut it looks like that is outside of your price range.";
-                }
-
-                dialogue.text = response;
-
-
-            }
-
-            //Increase Loot Gain
-            else if (mouseX > 0.745 && mouseX < 0.805)
-            {
-                string response = "For $" + mapCost + " I can give a map to a richer part of the catacombs.\nAll chests will be worth $2 more on delves there.";
-
-                if (StatController.wealth < mapCost)
-                {
-                    response += "\nBut looking at how much you have, that'll have to wait";
-                }
-
-                dialogue.text = response;
-
-            }
-
-            else if (mouseX < 0.12 || mouseX > 0.875)
-            {
-                ResetSalesPitch();
-            }
-        }
-        else
-        {
-            ResetSalesPitch();
-        }
 
         if (mouseX > 0 && mouseX < 1)
         {
@@ -193,6 +180,8 @@ public class VendorController : MonoBehaviour
     //Buy some bullets
     public void BuyBullets()
     {
+        bulletsBought++;
+        UpdateItemPricesAndQuantity();
         if (StatController.wealth >= bulletCost)
         {
             StatController.wealth -= bulletCost;
@@ -201,26 +190,40 @@ public class VendorController : MonoBehaviour
 
     }
 
+    //Buy some bullets
+    public void BuyBulletCase()
+    {
+        if (StatController.wealth >= bulletCaseCost)
+        {
+            StatController.wealth -= bulletCaseCost;
+            StatController.bulletCaseUpgradeCount += 1;
+        }
+        UpdateItemPricesAndQuantity();
+    }
+
     //Buy some health
     public void BuyArmor()
     {
+        armorBought++;
         if (StatController.wealth >= armorCost || infiniteLoot)
         {
             StatController.wealth -= armorCost;
             StatController.health += 30;
         }
 
-
+        UpdateItemPricesAndQuantity();
     }
 
     //Buy some more time
     public void BuyOil()
     {
+        oilBought++;
         if (StatController.wealth >= oilCost || infiniteLoot)
         {
             StatController.wealth -= oilCost;
             StatController.totalTime += 60;
         }
+        UpdateItemPricesAndQuantity();
     }
 
     //Upgrade Loot
@@ -230,9 +233,11 @@ public class VendorController : MonoBehaviour
         {
             StatController.wealth -= mapCost;
 
+            StatController.treasureUpgradeCount += 1;
             int currentMap = PlayerPrefs.GetInt("BaseLoot");
             PlayerPrefs.SetInt("BaseLoot", currentMap + 2);
         }
+        UpdateItemPricesAndQuantity();
     }
 
     //Upgrade Health
@@ -243,6 +248,7 @@ public class VendorController : MonoBehaviour
             StatController.wealth -= bloodCost;
             StatController.healthUpgradeCount += 1;
         }
+        UpdateItemPricesAndQuantity();
     }
 
     //Upgrade Lantern
@@ -257,5 +263,6 @@ public class VendorController : MonoBehaviour
             //float currentLantern = PlayerPrefs.GetFloat("StartTime");
             //PlayerPrefs.SetFloat("StartTime", currentLantern + 60);
         }
+        UpdateItemPricesAndQuantity();
     }
 }

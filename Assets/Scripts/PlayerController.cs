@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet"))
         {
             Destroy(other, 0f);
-            StatController.bullets += 10;
+            StatController.bullets += 10 + StatController.bulletCaseUpgradeCount * 3;
             other.gameObject.SetActive(false);
         }
 
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
             int level = LevelDesigner.level;
             int lootValue = (int)Random.Range(level, level + 5);
-            lootValue += PlayerPrefs.GetInt("BaseLoot");
+            lootValue += 5 + StatController.treasureUpgradeCount * 2;//PlayerPrefs.GetInt("BaseLoot");
             StatController.loot += lootValue;
             other.gameObject.SetActive(false);
 

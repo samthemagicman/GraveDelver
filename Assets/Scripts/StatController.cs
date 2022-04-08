@@ -44,7 +44,29 @@ public class StatController : MonoBehaviour
     }
 
     public static int bullets;
-    
+    public static int bulletCaseUpgradeCount
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("BulletCaseUpgradeCount", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("BulletCaseUpgradeCount", value);
+        }
+    }
+    public static int treasureUpgradeCount
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("TreasureUpgradeCount", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("TreasureUpgradeCount", value);
+        }
+    }
+
     //Loot is the current loot the player has picked up in the delve
     public static int loot;
 
