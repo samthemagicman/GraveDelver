@@ -20,7 +20,8 @@ public class MenuController : MonoBehaviour
     public Button exitButton;
 
     public Text credits;
-    public Image redBack;
+    public GameObject optionsMenu;
+    public GameObject menuButtons;
 
     public Text clearText;
 
@@ -37,16 +38,6 @@ public class MenuController : MonoBehaviour
     {
         
         verified = false;
-
-        //Set starting values for a new game
-        if (!PlayerPrefs.HasKey("StartBullets"))
-        {
-            PlayerPrefs.SetInt("StartBullets", 20);
-        }
-        if (!PlayerPrefs.HasKey("BaseLoot"))
-        {
-            PlayerPrefs.SetInt("BaseLoot", 5);
-        }
 
         //Set Progress Text
         if (PlayerPrefs.HasKey("Wealth"))
@@ -119,42 +110,15 @@ public class MenuController : MonoBehaviour
     //Show Options Menu
     public void ShowOptions()
     {
-        menuButton.enabled = true;
-        menuButton.transform.localScale = new Vector3(1, 1, 0);
-
-        if (PlayerPrefs.HasKey("Wealth"))
-        {
-            resetButton.enabled = true;
-            resetButton.transform.localScale = new Vector3(1, 1, 0);
-        }
-
-        exitButton.enabled = true;
-        exitButton.transform.localScale = new Vector3(1, 1, 0);
-
-        credits.enabled = true;
-        credits.transform.localScale = new Vector3(1, 1, 0);
-
-        redBack.enabled = true;
-        redBack.transform.localScale = new Vector3(1, 1, 0);
+        menuButtons.SetActive(false);
+        optionsMenu.SetActive(true);
     }
 
     //Hide Options Menu
     public void HideOptions()
     {
-        menuButton.enabled = false;
-        menuButton.transform.localScale = new Vector3(0, 0, 0);
-
-        resetButton.enabled = false;
-        resetButton.transform.localScale = new Vector3(0, 0, 0);
-
-        exitButton.enabled = false;
-        exitButton.transform.localScale = new Vector3(0, 0, 0);
-
-        credits.enabled = false;
-        credits.transform.localScale = new Vector3(0, 0, 0);
-
-        redBack.enabled = false;
-        redBack.transform.localScale = new Vector3(0, 0, 0);
+        menuButtons.SetActive(true);
+        optionsMenu.SetActive(false);
     }
 
     //Clear progress
@@ -172,14 +136,6 @@ public class MenuController : MonoBehaviour
             StatController.lanternUpgradeCount = 0;
             StatController.healthUpgradeCount = 0;
             StatController.treasureUpgradeCount = 0;
-            if (!PlayerPrefs.HasKey("StartBullets"))
-            {
-                PlayerPrefs.SetInt("StartBullets", 20);
-            }
-            if (!PlayerPrefs.HasKey("BaseLoot"))
-            {
-                PlayerPrefs.SetInt("BaseLoot", 0);
-            }
         }
         else
         {

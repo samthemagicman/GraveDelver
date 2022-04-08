@@ -314,6 +314,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Handbook
       objectReference: {fileID: 0}
+    - target: {fileID: 2548042940116278236, guid: e8236db7d8025584b86c5df386d82c35,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2548042940116278237, guid: e8236db7d8025584b86c5df386d82c35,
         type: 3}
       propertyPath: m_Pivot.x
