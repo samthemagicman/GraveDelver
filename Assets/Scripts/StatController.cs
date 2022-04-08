@@ -113,6 +113,7 @@ public class StatController : MonoBehaviour
         if (health == 0)
         {
             health = maxHealth; // fix looping
+            EndController.lootCount = StatController.loot;
             string[] fateOptions = new string[3] {"you were torn apart.",
                                                     "you were eaten alive.",
                                                     "you were picked clean." };
@@ -124,6 +125,7 @@ public class StatController : MonoBehaviour
         else if (totalTime < Time.timeSinceLevelLoad)
         {
             totalTime = 1000; // fix looping
+            EndController.lootCount = StatController.loot;
             string[] fateOptions = new string[3] {"you fell to the darkness.",
                                                     "you could only hear your death.",
                                                     "the shadows took you." };

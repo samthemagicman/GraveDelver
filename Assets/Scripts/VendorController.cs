@@ -63,7 +63,7 @@ public class VendorController : MonoBehaviour
         bloodButton.GetComponentInChildren<Text>().text = "$" + bloodCost + "("+StatController.healthUpgradeCount+")";
         lanternButton.GetComponentInChildren<Text>().text = "$" + lanternCost + "(" + StatController.lanternUpgradeCount + ")";
         mapButton.GetComponentInChildren<Text>().text = "$" + mapCost + "(" + StatController.treasureUpgradeCount + ")";
-        bulletCaseButton.GetComponentInChildren<Text>().text = "$" + mapCost + "(" + StatController.bulletCaseUpgradeCount + ")";
+        bulletCaseButton.GetComponentInChildren<Text>().text = "$" + bulletCaseCost + "(" + StatController.bulletCaseUpgradeCount + ")";
     }
 
     public void OnButtonEnter(GameObject btn)
