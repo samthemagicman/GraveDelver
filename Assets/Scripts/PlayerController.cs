@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
             int level = LevelDesigner.level;
             int lootValue = (int)Random.Range(level, level + 5);
-            lootValue += 5 + StatController.treasureUpgradeCount * 2;//PlayerPrefs.GetInt("BaseLoot");
+            lootValue += StatController.treasureUpgradeCount * 2;//PlayerPrefs.GetInt("BaseLoot");
             StatController.loot += lootValue;
             other.gameObject.SetActive(false);
 
