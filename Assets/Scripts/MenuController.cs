@@ -29,6 +29,8 @@ public class MenuController : MonoBehaviour
     public Canvas handbook;
     public GameObject menu;
 
+    public GameObject firstTimePlayingText;
+
     public float fadeRate;
 
     public bool verified;
@@ -50,6 +52,7 @@ public class MenuController : MonoBehaviour
         }
         else
         {
+            firstTimePlayingText.SetActive(true);
             scoreText.text = "";
 
            // startButton.enabled = false;
