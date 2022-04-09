@@ -39,30 +39,25 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        /*if (horizontal != 0 || vertical != 0)
+        if (!PauseMenuController.paused)
         {
-            animator.SetFloat("VelocityMagnitude", rb.velocity.magnitude);
-        }
-        else
-        {
-            animator.SetFloat("VelocityMagnitude", false);
-        }*/
+            Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+            Vector3 dir = Input.mousePosition - pos;
+            if (dir.x < 0)
+            {
+                renderer.flipX = true;
+            }
+            else
+            {
+                renderer.flipX = false;
+            }
 
-        Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
-        Vector3 dir = Input.mousePosition - pos;
-        if (dir.x < 0)
-        {
-            renderer.flipX = true;
-        } else
-        {
-            renderer.flipX = false;
-        }
-
-        if (rolling == false && Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            rolling = true;
-            StartCoroutine("RollStop");
-            animator.SetTrigger("Roll");
+            if (rolling == false && Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                rolling = true;
+                StartCoroutine("RollStop");
+                animator.SetTrigger("Roll");
+            }
         }
     }
 

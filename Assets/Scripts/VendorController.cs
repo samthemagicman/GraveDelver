@@ -41,6 +41,7 @@ public class VendorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StatController.ResetToDefault();
         LevelDesigner.level = 0;
         //LevelDesigner.startingTime = PlayerPrefs.GetFloat("StartTime");
 

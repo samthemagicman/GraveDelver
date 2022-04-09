@@ -37,44 +37,48 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (!PauseMenuController.paused)
         {
-            lastTimeFireButtonDown = Time.realtimeSinceStartup; // Provides a small buffer for input
-        }
-
-        //Check Reload Time
-        if (Time.realtimeSinceStartup - lastFire >= fireRatePerSecond && (Time.realtimeSinceStartup - lastTimeFireButtonDown < 0.1f))
-        {
-            //Check bullets
-            if (StatController.bullets > 0)
+            if (Input.GetButtonDown("Fire1"))
             {
-                FireBullet();
-                lastFire = Time.realtimeSinceStartup;
-                animator.SetTrigger("Fire");
+                lastTimeFireButtonDown = Time.realtimeSinceStartup; // Provides a small buffer for input
             }
-            
-        }
 
-        //Rotate sword
-        sword.transform.localPosition = positionOffset;// new Vector3(0, 0, 0);
-        Vector3 pos = Camera.main.WorldToScreenPoint(sword.transform.position);
-        Vector3 dir = Input.mousePosition - pos;
-        currentAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        if (dir.x < 0)
-        {
-            //swordRenderer.flipY = false;
-            swordRenderer.transform.localScale = new Vector3(swordRenderer.transform.localScale.x, Mathf.Abs(swordRenderer.transform.localScale.y), swordRenderer.transform.localScale.z);
-            //angle = angle + 180;
-            currentAngle = currentAngle;
+            //Check Reload Time
+            if (Time.realtimeSinceStartup - lastFire >= fireRatePerSecond && (Time.realtimeSinceStartup - lastTimeFireButtonDown < 0.1f))
+            {
+                //Check bullets
+                if (StatController.bullets > 0)
+                {
+                    FireBullet();
+                    lastFire = Time.realtimeSinceStartup;
+                    animator.SetTrigger("Fire");
+                }
+            
+            }
+
+            //Rotate sword
+            sword.transform.localPosition = positionOffset;// new Vector3(0, 0, 0);
+            Vector3 pos = Camera.main.WorldToScreenPoint(sword.transform.position);
+            Vector3 dir = Input.mousePosition - pos;
+            currentAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            if (dir.x < 0)
+            {
+                //swordRenderer.flipY = false;
+                swordRenderer.transform.localScale = new Vector3(swordRenderer.transform.localScale.x, Mathf.Abs(swordRenderer.transform.localScale.y), swordRenderer.transform.localScale.z);
+                //angle = angle + 180;
+                currentAngle = currentAngle;
+            }
+            else
+            {
+                //swordRenderer.flipY = true;
+                swordRenderer.transform.localScale = new Vector3(swordRenderer.transform.localScale.x, -Mathf.Abs(swordRenderer.transform.localScale.y), swordRenderer.transform.localScale.z);
+                currentAngle = currentAngle;
+            }
+            sword.transform.rotation = Quaternion.AngleAxis(currentAngle + 180, Vector3.forward);
+            sword.transform.localPosition += sword.transform.right * outwardOffset;
+
         }
-        else
-        {
-            //swordRenderer.flipY = true;
-            swordRenderer.transform.localScale = new Vector3(swordRenderer.transform.localScale.x, -Mathf.Abs(swordRenderer.transform.localScale.y), swordRenderer.transform.localScale.z);
-            currentAngle = currentAngle;
-        }
-        sword.transform.rotation = Quaternion.AngleAxis(currentAngle + 180, Vector3.forward);
-        sword.transform.localPosition += sword.transform.right * outwardOffset;
     }
 
     void FireBullet()
