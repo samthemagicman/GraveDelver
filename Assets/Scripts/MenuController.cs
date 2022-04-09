@@ -136,6 +136,7 @@ public class MenuController : MonoBehaviour
             StatController.lanternUpgradeCount = 0;
             StatController.healthUpgradeCount = 0;
             StatController.treasureUpgradeCount = 0;
+            StatController.ResetToDefault();
         }
         else
         {
