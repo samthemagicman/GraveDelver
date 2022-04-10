@@ -39,7 +39,8 @@ public class InstructionController : MonoBehaviour
                     + "Some say you can find a gate to Hell inside.";
 
         pages[1] = "Use arrow keys or ASDW to move.\n\n"
-                    + "Right click to sprint,\nif only for a short distance.";
+                    + "Right click to sprint, if only for a short distance.\n\n"
+                     +"Press Esc to pause the Delve.";
         writing[1] = "Don’t get cornered in. You’re faster than they are.";
 
         pages[2] = "You have a gun to shoot with.\n\n"
